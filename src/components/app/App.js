@@ -5,20 +5,16 @@ import './App.css';
 import Dashboard from '../dashboard/Dashboard';
 import Login from '../login/Login';
 import Preferences from '../preferences/Preferences';
-import Logout from "../logout/Logout";
 import UserData from './UserData';
 
 
 function App() {
-  const { token, setToken, deleteToken,
-          username, setUsername, deleteUsername,
-          role, setRole, deleteRole 
-        } = UserData();
+  const { tokenData } = UserData();
 
-  console.log("token: ", token);
+  console.log("token: ", tokenData.data);
 
-  if(!token) {
-    return <Login setToken={setToken} />
+  if(!tokenData.data) {
+    return <Login />
   }
 
   return (
@@ -34,11 +30,7 @@ function App() {
           <Route path="/preferences">
             <Preferences />
           </Route>
-
-          <Route path="/logout">
-            <Logout/>
-          </Route>
-        
+      
         </Switch>
       </BrowserRouter>
     </div>

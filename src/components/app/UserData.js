@@ -1,50 +1,15 @@
-import { useState } from 'react';
+import CrudData from "./CrudData"
 
-var CRUDData = nameData => {
-  const getData = () => {
-    const dataString = localStorage.getItem(nameData);
-    const userData = JSON.parse(dataString);
+const token = new CrudData('token');
+const username = new CrudData('username');
+const role = new CrudData('roles');
 
-    console.log(userData);
-    
-    return userData
-  };
-
-  const [data, updateData] = useState(getData());
-
-  const saveData = userData => {
-    localStorage.setItem(nameData, JSON.stringify(userData));
-    updateData(userData);
-  };
-
-  const deleteData = () => {
-    localStorage.removeItem(nameData);
-    updateData(null);
-  }
-
+export default function UserData() { 
   return {
-    data: data,
-    set: saveData,
-    delete: deleteData,
-  }
-}
-
-export default function UserData() {  
-  const token = CRUDData('token');
-  const username = CRUDData('username');
-  const role = CRUDData('role');
-
-  return {
-    token: token.data,
-    setToken: token.set,
-    deleteToken: token.delete,
+    tokenData: token,
     
-    username: username.data,
-    setUsername: username.set,
-    deleteUsername: username.delete,
+    usernameData: username,
 
-    role: role.data,
-    setRole: role.set,
-    deleteRole: role.delete
+    roleData: role
   }
 }

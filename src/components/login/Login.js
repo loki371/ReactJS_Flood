@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import './Login.css';
+import UserData from "../app/UserData";
 
 async function loginUser(credentials) {
   return fetch('http://localhost:8080/v1/api/auth/signin', {
@@ -14,7 +14,9 @@ async function loginUser(credentials) {
     .then(data => data.json())
  }
 
-export default function Login({ setToken }) {
+export default function Login() {
+  const { tokenData, usernameData, roleData } = UserData();
+
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
@@ -27,7 +29,9 @@ export default function Login({ setToken }) {
     console.log(data);
 
     if (data.tokenType === "Bearer") {
-      setToken(data.accessToken);
+      tokenData.set(data.accessToken);
+      usernameData.set(data.username);
+      roleData.set(data.roles);
     }
   }
 
@@ -50,7 +54,3 @@ export default function Login({ setToken }) {
     </div>
   )
 }
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-};
