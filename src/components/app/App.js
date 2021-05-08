@@ -7,38 +7,42 @@ import Login from '../login/Login';
 import Preferences from '../preferences/Preferences';
 import UserData from './UserData';
 
+const { tokenData } = UserData();
 
-function App() {
-  const { tokenData } = UserData();
+class App extends React.Component {
+  render() {
 
-  console.log("token: ", tokenData.data);
+    if(!tokenData.data) {
+      return <Login/>;
+    }
 
-  if(!tokenData.data) {
-    return <Login />
+    return (
+      <div className="wrapper">
+        <h1>Application</h1>
+        <BrowserRouter>
+          <Switch>
+            
+            <Route path="/login">
+              <Login />
+            </Route>
+
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+            
+            <Route path="/preferences">
+              <Preferences />
+            </Route>
+
+            <Route>
+              <Login />
+            </Route>
+        
+          </Switch>
+        </BrowserRouter>
+      </div>
+    );
   }
-
-  return (
-    <div className="wrapper">
-      <h1>Application</h1>
-      <BrowserRouter>
-        <Switch>
-          
-          <Route path="/login">
-            <Login />
-          </Route>
-
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          
-          <Route path="/preferences">
-            <Preferences />
-          </Route>
-      
-        </Switch>
-      </BrowserRouter>
-    </div>
-  );
 }
 
 export default App;

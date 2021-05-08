@@ -21,11 +21,8 @@ export default function Login() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
-  if (tokenData.getData() != null) {
-
+  if (tokenData.data) {
     window.location.replace(Constant.dashboard_client);
-    
-    return;
   }
 
   const handleSubmit = async e => {
@@ -44,11 +41,14 @@ export default function Login() {
       roleData.set(data.roles);
       
       window.location.replace(Constant.dashboard_client);
+
+      return;
       
     } else {
 
       console.log("login failed!");
 
+      alert("Username or Password wrong");
     }
   }
 
