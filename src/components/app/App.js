@@ -23,6 +23,10 @@ function App() {
       <BrowserRouter>
         <Switch>
           
+          <Route path="/login">
+            <Login />
+          </Route>
+
           <Route path="/dashboard">
             <Dashboard />
           </Route>

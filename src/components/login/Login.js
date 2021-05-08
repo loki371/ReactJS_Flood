@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 
 import './Login.css';
 import UserData from "../app/UserData";
+import Constant from "../../constant";
 
 async function loginUser(credentials) {
-  return fetch('http://localhost:8080/v1/api/auth/signin', {
+  return fetch(Constant.login_server, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -20,7 +21,15 @@ export default function Login() {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
+  if (tokenData.getData() != null) {
+
+    window.location.replace(Constant.dashboard_client);
+    
+    return;
+  }
+
   const handleSubmit = async e => {
+
     e.preventDefault();
     const data = await loginUser({
       username,
@@ -29,9 +38,17 @@ export default function Login() {
     console.log(data);
 
     if (data.tokenType === "Bearer") {
+
       tokenData.set(data.accessToken);
       usernameData.set(data.username);
       roleData.set(data.roles);
+      
+      window.location.replace(Constant.dashboard_client);
+      
+    } else {
+
+      console.log("login failed!");
+
     }
   }
 

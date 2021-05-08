@@ -1,5 +1,8 @@
 import UserData from "../app/UserData"
 
+import Login from "../login/Login"
+import Constant from "../../constant"
+
 export default function Logout() {
     const { tokenData, usernameData, roleData } = UserData();
     
@@ -13,5 +16,7 @@ export default function Logout() {
                 "; username = " + usernameData.data +
                 "; role = " + roleData.data);
 
-    return;
+    window.location.replace(Constant.login_client);
+
+    return <Login/>;
 }
