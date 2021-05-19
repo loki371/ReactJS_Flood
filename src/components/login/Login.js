@@ -41,14 +41,7 @@ export default function Login() {
       roleData.set(data.roles);
       
       console.log(data.roles);
-      for (const role of data.roles) {
-          console.log(role);
-          if (role === "ROLE_USER") {
-            console.log("login failed because of role user");
-            alert("Your role is not valid");
-            return;
-          }
-      }
+      
       window.location.replace(Constant.dashboard_client);
 
       return;
