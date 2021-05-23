@@ -6,6 +6,7 @@ import Logout from "../logout/Logout"
 import UserData from "../app/UserData"
 import Axios from "axios";
 import UserItem from './UserItem';
+import RoleType from '../app/RoleType';
 
 const userData = UserData();
 var roleData = userData.roleData;
@@ -19,6 +20,8 @@ class Dashboard extends React.Component {
       dataRequest : [],
       dataAccept : []
     }
+    this.userRole = null;
+    this.itemRole = null;
   }
 
   componentDidMount() {
@@ -29,7 +32,7 @@ class Dashboard extends React.Component {
 
   componentWillUnmount() {}
 
-  loadAtRegistration(dataRequest, dataAccept, url, type) {
+  loadRegistrationForAuthority(dataRequest, dataAccept, url) {
     Axios.get(url, {
       headers: {
         'Content-Type': 'application/json',
@@ -40,11 +43,13 @@ class Dashboard extends React.Component {
       console.log("data received: ", res.data.data);
       res.data.data.map(
         item => {
-          if (item.estate === "STATE_UNAUTHENTICATED")
+          if (item.estate === "STATE_UNAUTHENTICATED" || item.state === "STATE_UNAUTHENTICATED" || item.state === null) {
             dataRequest.push(item);
-          else 
-          if (item.estate === "STATE_AUTHENTICATED")
+            console.log("loading : item name = ", item.name, " -> request");
+          } else if (item.estate === "STATE_AUTHENTICATED" || item.state === "STATE_AUTHENTICATED") {
             dataAccept.push(item);
+            console.log("loading : item name = ", item.name, " -> accepted");
+          }
         }
       )
 
@@ -56,11 +61,34 @@ class Dashboard extends React.Component {
     })
     .catch(function() {
       console.log("error in get resource with token -> login again");
-      tokenData.delete();
-      usernameData.delete();
-      roleData.delete();
+      //tokenData.delete();
+      //usernameData.delete();
+      //roleData.delete();
 
       // this.props.history.push(Constant.login_client);
+  
+      return false;
+    });
+  }
+
+  loadRegistrationForVolunteer(dataRequest, dataAccept, url, type) {
+    Axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': tokenData.data
+      },
+    }).then((res) => {
+  
+      console.log(res.data.data);
+  
+    })
+    .catch(function() {
+      console.log("error in get resource with token -> login again");
+      //tokenData.delete();
+      //usernameData.delete();
+      //roleData.delete();
+  
+      //this.props.history.push(Constant.login_client);
   
       return false;
     });
@@ -75,7 +103,9 @@ class Dashboard extends React.Component {
     });
     var dataAccept = [];
     var dataRequest = [];
-    this.loadAtRegistration(dataAccept, dataRequest, Constant.user_registration, actionType.GET_USER_RES_AUTH);
+    this.userRole = RoleType.AUTHORITY;
+    this.itemRole = RoleType.USER;
+    this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.user_registration);
   }
 
   loadUserRegistrationVolunteer(){
@@ -88,7 +118,7 @@ class Dashboard extends React.Component {
     var dataRequest = [];
 
     console.log("loadUserRegistration Volunteer");
-    loadCustomRegistration(dataAccept, dataRequest, Constant.user_registration, actionType.GET_USER_RES_VOLU);
+    this.loadRegistrationForVolunteer(dataAccept, dataRequest, Constant.user_registration);
   }
 
   loadAuthorityRegistrationAuthority(){
@@ -98,8 +128,12 @@ class Dashboard extends React.Component {
     });
     var dataAccept = [];
     var dataRequest = [];
-    console.log("loadUserRegistration Volunteer");
-    loadCustomRegistration(dataAccept, dataRequest, Constant.auth_location_regis, actionType.GET_AUTH_RES);
+
+    this.userRole = RoleType.AUTHORITY;
+    this.itemRole = RoleType.AUTHORITY;
+
+    console.log("loadAuthorityRegistration Authority");
+    this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.auth_location_regis);
   }
 
   loadVolunteerRegistrationAuthority() {
@@ -110,7 +144,7 @@ class Dashboard extends React.Component {
     var dataAccept = [];
     var dataRequest = [];
     console.log("loadVolunteerRegistration Authority");
-    loadCustomRegistration(dataAccept, dataRequest, Constant.volu_location_regis, actionType.GET_VOLU_RES);
+    this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.volu_location_regis);
   }
 
   loadRescuerRegistrationAuthority() {
@@ -121,7 +155,7 @@ class Dashboard extends React.Component {
     var dataAccept = [];
     var dataRequest = [];
     console.log("loadRescuerRegistration Authority");
-    loadCustomRegistration(dataAccept, dataRequest, Constant.resc_location_regis, actionType.GET_RESC_RES);
+    this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.resc_location_regis);
   }
 
   renderclonegido(role) {
@@ -161,12 +195,12 @@ class Dashboard extends React.Component {
       <div class="row">
         <div class="column">
           <h3>Request: </h3>
-          <div id="requests">{ dataRequest.map(item => <UserItem element={item} dashboard={this} />) }</div>
+          <div id="requests">{ dataRequest.map(item => <UserItem element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>) }</div>
         </div>
 
         <div class="column">
           <h3>Accepted: </h3>
-          <div id="accepted">{ dataAccept.map(item => <UserItem element={item} dashboard={this} />) }</div>
+          <div id="accepted">{ dataAccept.map(item => <UserItem element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>) }</div>
         </div>
       </div>
       
@@ -176,14 +210,6 @@ class Dashboard extends React.Component {
 }
 
 export default Dashboard;
-
-var actionType = {
-  GET_USER_RES_VOLU : -1,
-  GET_USER_RES_AUTH : 0,
-  GET_AUTH_RES : 1,
-  GET_VOLU_RES : 2,
-  GET_RESC_RES : 3
-}
 
 async function checkValidToken() {
   console.log("this.token = "  + tokenData.data);
@@ -206,29 +232,6 @@ async function checkValidToken() {
     tokenData.delete();
     usernameData.delete();
     roleData.delete();
-
-    return false;
-  });
-}
-
-function loadCustomRegistration(dataRequest, dataAccept, url, type) {
-  Axios.get(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': tokenData.data
-    },
-  }).then((res) => {
-
-    console.log(res.data.data);
-
-  })
-  .catch(function() {
-    console.log("error in get resource with token -> login again");
-    tokenData.delete();
-    usernameData.delete();
-    roleData.delete();
-
-    //this.props.history.push(Constant.login_client);
 
     return false;
   });
