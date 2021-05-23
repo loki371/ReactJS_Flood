@@ -17,7 +17,9 @@ const address = {
     
     auth_location_regis: FLOOD_SERVICE_ADDRESS + "/locationRegistrations/authorities",
     resc_location_regis: FLOOD_SERVICE_ADDRESS + "/locationRegistrations/rescuers",
-    volu_location_regis: FLOOD_SERVICE_ADDRESS + "/locationRegistrations/volunteers"
+    volu_location_regis: FLOOD_SERVICE_ADDRESS + "/locationRegistrations/volunteers",
+    
+    accept_reject_user_regis : FLOOD_SERVICE_ADDRESS + "/registrations/authorities"
 
 };
 

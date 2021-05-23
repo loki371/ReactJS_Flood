@@ -43,6 +43,7 @@ class Dashboard extends React.Component {
           if (item.estate === "STATE_UNAUTHENTICATED")
             dataRequest.push(item);
           else 
+          if (item.estate === "STATE_AUTHENTICATED")
             dataAccept.push(item);
         }
       )
@@ -58,6 +59,8 @@ class Dashboard extends React.Component {
       tokenData.delete();
       usernameData.delete();
       roleData.delete();
+
+      // this.props.history.push(Constant.login_client);
   
       return false;
     });
@@ -76,29 +79,47 @@ class Dashboard extends React.Component {
   }
 
   loadUserRegistrationVolunteer(){
-    var dataAccept = this.state.dataAccept;
-    var dataRequest = this.state.dataRequest;
+    this.setState({
+      dataAccept : [],
+      dataRequest : []
+    });
+    
+    var dataAccept = [];
+    var dataRequest = [];
+
     console.log("loadUserRegistration Volunteer");
     loadCustomRegistration(dataAccept, dataRequest, Constant.user_registration, actionType.GET_USER_RES_VOLU);
   }
 
   loadAuthorityRegistrationAuthority(){
-    var dataAccept = this.state.dataAccept;
-    var dataRequest = this.state.dataRequest;
+    this.setState({
+      dataAccept : [],
+      dataRequest : []
+    });
+    var dataAccept = [];
+    var dataRequest = [];
     console.log("loadUserRegistration Volunteer");
     loadCustomRegistration(dataAccept, dataRequest, Constant.auth_location_regis, actionType.GET_AUTH_RES);
   }
 
   loadVolunteerRegistrationAuthority() {
-    var dataAccept = this.state.dataAccept;
-    var dataRequest = this.state.dataRequest;
+    this.setState({
+      dataAccept : [],
+      dataRequest : []
+    });
+    var dataAccept = [];
+    var dataRequest = [];
     console.log("loadVolunteerRegistration Authority");
     loadCustomRegistration(dataAccept, dataRequest, Constant.volu_location_regis, actionType.GET_VOLU_RES);
   }
 
   loadRescuerRegistrationAuthority() {
-    var dataAccept = this.state.dataAccept;
-    var dataRequest = this.state.dataRequest;
+    this.setState({
+      dataAccept : [],
+      dataRequest : []
+    });
+    var dataAccept = [];
+    var dataRequest = [];
     console.log("loadRescuerRegistration Authority");
     loadCustomRegistration(dataAccept, dataRequest, Constant.resc_location_regis, actionType.GET_RESC_RES);
   }
@@ -140,12 +161,12 @@ class Dashboard extends React.Component {
       <div class="row">
         <div class="column">
           <h3>Request: </h3>
-          <div id="requests">{ dataRequest.map(item => <UserItem element={item} />) }</div>
+          <div id="requests">{ dataRequest.map(item => <UserItem element={item} dashboard={this} />) }</div>
         </div>
 
         <div class="column">
           <h3>Accepted: </h3>
-          <div id="accepted">{ dataAccept.map(item => <UserItem element={item} />) }</div>
+          <div id="accepted">{ dataAccept.map(item => <UserItem element={item} dashboard={this} />) }</div>
         </div>
       </div>
       
@@ -206,6 +227,8 @@ function loadCustomRegistration(dataRequest, dataAccept, url, type) {
     tokenData.delete();
     usernameData.delete();
     roleData.delete();
+
+    //this.props.history.push(Constant.login_client);
 
     return false;
   });
