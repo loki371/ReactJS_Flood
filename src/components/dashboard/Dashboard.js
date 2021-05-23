@@ -43,10 +43,10 @@ class Dashboard extends React.Component {
       console.log("data received: ", res.data.data);
       res.data.data.map(
         item => {
-          if (item.estate === "STATE_UNAUTHENTICATED" || item.state === "STATE_UNAUTHENTICATED" || item.state === null) {
+          if (item.estate === "STATE_UNAUTHENTICATED" || item.estate === null) {
             dataRequest.push(item);
             console.log("loading : item name = ", item.name, " -> request");
-          } else if (item.estate === "STATE_AUTHENTICATED" || item.state === "STATE_AUTHENTICATED") {
+          } else if (item.estate === "STATE_AUTHENTICATED") {
             dataAccept.push(item);
             console.log("loading : item name = ", item.name, " -> accepted");
           }
@@ -117,6 +117,9 @@ class Dashboard extends React.Component {
     var dataAccept = [];
     var dataRequest = [];
 
+    this.userRole = RoleType.VOLUNTEER;
+    this.itemRole = RoleType.USER;
+
     console.log("loadUserRegistration Volunteer");
     this.loadRegistrationForVolunteer(dataAccept, dataRequest, Constant.user_registration);
   }
@@ -143,6 +146,10 @@ class Dashboard extends React.Component {
     });
     var dataAccept = [];
     var dataRequest = [];
+
+    this.userRole = RoleType.AUTHORITY;
+    this.itemRole = RoleType.VOLUNTEER;
+
     console.log("loadVolunteerRegistration Authority");
     this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.volu_location_regis);
   }
@@ -154,6 +161,10 @@ class Dashboard extends React.Component {
     });
     var dataAccept = [];
     var dataRequest = [];
+
+    this.userRole = RoleType.AUTHORITY;
+    this.itemRole = RoleType.RESCUER;
+
     console.log("loadRescuerRegistration Authority");
     this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.resc_location_regis);
   }

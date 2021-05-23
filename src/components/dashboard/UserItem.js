@@ -30,11 +30,11 @@ class UserItem extends React.Component {
                 element : props.element
             };
 
-        else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.AUTHORITY)
+        else //if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.AUTHORITY)
             this.state = {
                 id : props.element.id,
                 name : props.element.username,
-                estate : props.element.state,
+                estate : props.element.estate,
 
                 dashboard : props.dashboard,
                 element : props.element
@@ -126,7 +126,7 @@ class UserItem extends React.Component {
                 console.log("index accept ", index);
                 if (index !== -1) {
                     arrRequest.splice(index, 1);
-                    this.state.element.state = "STATE_AUTHENTICATED";
+                    this.state.element.estate = "STATE_AUTHENTICATED";
                     arrAccept.push(this.state.element);
                     console.log("thay doi state Accept");
                 }
@@ -135,9 +135,9 @@ class UserItem extends React.Component {
                 console.log("index reject ", index);
                 if (index !== -1) {
                     arrAccept.splice(index, 1);
-                    this.state.element.state = "STATE_UNAUTHENTICATED";
-                    arrRequest.push(this.state.element);
-                    console.log("thay doi state Delete");
+                    //this.state.element.state = "STATE_UNAUTHENTICATED";
+                    //arrRequest.push(this.state.element);
+                    //console.log("thay doi state Delete");
                 }
             }
 
@@ -184,6 +184,8 @@ class UserItem extends React.Component {
                         <h3>{ this.state.name }</h3>
                         <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
                         <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.auth_location_regis)}>Them</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.auth_location_regis)}>Xoa</button>
+
                     </div>
                 )
             else 
@@ -192,6 +194,44 @@ class UserItem extends React.Component {
                         <h3>{ this.state.name }</h3>
                         <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
                         <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.auth_location_regis)} >Xoa</button>
+                    </div>
+                );
+        } else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.RESCUER) {
+            if (this.state.estate === "STATE_UNAUTHENTICATED" || this.state.estate === null)
+                return (
+                    <div>
+                        <h3>{ this.state.name }</h3>
+                        <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.resc_location_regis)}>Them</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.resc_location_regis)}>Xoa</button>
+
+                    </div>
+                )
+            else 
+                return (
+                    <div>
+                        <h3>{ this.state.name }</h3>
+                        <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.resc_location_regis)} >Xoa</button>
+                    </div>
+                );
+        } else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.VOLUNTEER) {
+            if (this.state.estate === "STATE_UNAUTHENTICATED" || this.state.estate === null)
+                return (
+                    <div>
+                        <h3>{ this.state.name }</h3>
+                        <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.volu_location_regis)}>Them</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.volu_location_regis)}>Xoa</button>
+
+                    </div>
+                )
+            else 
+                return (
+                    <div>
+                        <h3>{ this.state.name }</h3>
+                        <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.volu_location_regis)} >Xoa</button>
                     </div>
                 );
         }
