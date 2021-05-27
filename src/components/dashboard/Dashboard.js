@@ -79,8 +79,18 @@ class Dashboard extends React.Component {
       },
     }).then((res) => {
   
-      console.log(res.data.data);
-  
+      console.log("data received: ", res.data.data);
+      res.data.data.map(
+        item => {
+          if (item.estate === "STATE_DANGER") {
+            dataRequest.push(item);
+            console.log("loading : item name = ", item.name, " -> request");
+          } else if (item.estate === "STATE_EMERGENCY") {
+            dataAccept.push(item);
+            console.log("loading : item name = ", item.name, " -> accepted");
+          }
+        }
+      )
     })
     .catch(function() {
       console.log("error in get resource with token -> login again");

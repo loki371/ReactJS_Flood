@@ -45,12 +45,12 @@ class UserItem extends React.Component {
 
     }
 
-    guiAcceptRejectToUserRegis(newState1, accept) {
+    guiAcceptRejectToUserRegis(newState1, accept, url) {
         //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.estate + " newState " + newState1);
         //console.log("token ", tokenData.data);
         Axios.defaults.headers.common['Authorization'] = tokenData.data;
         Axios.put(
-            Constant.accept_reject_user_regis 
+                url
                 + "/" + this.state.id 
                 + "?oldState=" + this.state.estate
                 + "&newState=" + newState1
@@ -83,6 +83,65 @@ class UserItem extends React.Component {
                     this.state.element.estate = "STATE_UNAUTHENTICATED";
                     arrRequest.push(this.state.element);
                     console.log("thay doi state Delete");
+                }
+            }
+
+            dashboard.setState(
+                {dataAccept : arrAccept,
+                    dataRequest: arrRequest}
+            );
+
+
+        
+        }).catch(function(error) {
+            console.log("error = ", error);
+        
+            return false;
+        });
+    }
+
+    guiAcceptRejectToUserRegisVolunteer(newState1, accept, url) {
+        //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.estate + " newState " + newState1);
+        //console.log("token ", tokenData.data);
+        Axios.defaults.headers.common['Authorization'] = tokenData.data;
+        Axios.put(
+                url
+                + "/" + this.state.id 
+                + "?oldState=" + this.state.estate
+                + "&newState=" + newState1
+        ).then((res) => {
+    
+            console.log("response = ", res.data);
+            var dashboard = this.state.dashboard;
+
+            var arrAccept = dashboard.state.dataAccept;
+            var arrRequest = dashboard.state.dataRequest;
+
+            console.log("guiAcceptRejectToUserRegis : arrAc ", arrAccept);
+            console.log("guiAcceptRejectToUserRegis : arrRe ", arrRequest);
+
+            var index;
+            if (accept) {
+                index = indexOf(arrRequest, this.state.id);
+                console.log("index accept ", index);
+                if (index !== -1) {
+                    arrRequest.splice(index, 1);
+                    if (newState1 === "STATE_EMERGENCY") {
+                        this.state.element.estate = "STATE_EMERGENCY";
+                        arrAccept.push(this.state.element);
+                    }
+                    console.log("thay doi state STATE_EMERGENCY");
+                }
+            } else {
+                index = indexOf(arrAccept, this.state.id);
+                console.log("index delete ", index);
+                if (index !== -1) {
+                    arrAccept.splice(index, 1)
+                    if (newState1 === "STATE_DANGER") {
+                        this.state.element.estate = "STATE_DANGER";
+                        arrRequest.push(this.state.element);
+                    }
+                    console.log("thay doi state STATE_DANGER");
                 }
             }
 
@@ -164,7 +223,7 @@ class UserItem extends React.Component {
                         <h3>{ this.state.name }</h3>
                         <p>{ this.state.phone }</p>
                         <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
-                        <button type="button" onClick={()=>this.guiAcceptRejectToUserRegis("STATE_AUTHENTICATED", true)}>Them</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToUserRegis("STATE_AUTHENTICATED", true, Constant.accept_reject_user_regis)}>Them</button>
                     </div>
                 )
             else 
@@ -173,7 +232,7 @@ class UserItem extends React.Component {
                         <h3>{ this.state.name }</h3>
                         <p>{ this.state.phone }</p>
                         <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
-                        <button type="button" onClick={()=>this.guiAcceptRejectToUserRegis("STATE_UNAUTHENTICATED", false)} >Xoa</button>
+                        <button type="button" onClick={()=>this.guiAcceptRejectToUserRegis("STATE_UNAUTHENTICATED", false, Constant.accept_reject_user_regis )} >Xoa</button>
                     </div>
                 );
 
@@ -234,6 +293,20 @@ class UserItem extends React.Component {
                         <button type="button" onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.volu_location_regis)} >Xoa</button>
                     </div>
                 );
+        } else if (this.userRole === roleType.VOLUNTEER && this.itemRole === roleType.USER) {
+            if (this.state.estate === "STATE_WARNING" || this.state.setState === null)
+                return <div>
+                    <h3>{ this.state.name }</h3>
+                    <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
+                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", true, Constant.user_registration)}>An toan</button>
+                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_EMERGENCY", true, Constant.user_registration)}>Nguy hiem</button>
+                </div>
+            else
+                return <div>
+                    <h3>{ this.state.name }</h3>
+                    <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
+                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", true, Constant.user_registration)}>An toan</button>
+                </div>
         }
     }
 }
