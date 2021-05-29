@@ -54,21 +54,25 @@ export default function Login() {
   }
 
   return(
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUserName(e.target.value)}/>
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)}/>
-        </label>
-        <div>
-          <button type="submit">Submit</button>
+    <div class="mx-auto" style={{width: '500px'}}>
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <h1 class = "text-center">Cứu nạn Miền Trung</h1>
+          <form onSubmit={handleSubmit} style={{width: '300px'}} class = "text-center">
+            <label class="row justify-content-md-center" style={{marginTop: '10px'}}>
+              <p class="">Username</p>
+              <input type="text" onChange={e => setUserName(e.target.value)} class = "text-center input-radius"/>
+            </label>
+            <label class="row justify-content-md-center" style={{marginTop: '10px'}}>
+              <p>Password</p>
+              <input type="password" onChange={e => setPassword(e.target.value)} class = "text-center input-radius"/>
+            </label>
+            <div style={{marginTop: '10px'}}>
+              <button type="submit" class="btn btn-success" style={{width: '100px'}}>Login</button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   )
 }
