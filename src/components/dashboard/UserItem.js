@@ -29,8 +29,20 @@ class UserItem extends React.Component {
                 dashboard : props.dashboard,
                 element : props.element
             };
+        else if (this.userRole === roleType.VOLUNTEER && this.itemRole === roleType.USER)
+            this.state = {
+                id : props.element.id,
+                name : props.element.name,
+                phone : props.element.phone,
+                numPerson : props.element.numPerson,
+                estate : props.element.estate,
+                longitude : props.element.longitude,
+                latitude : props.element.latitude,
 
-        else //if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.AUTHORITY)
+                dashboard : props.dashboard,
+                element : props.element
+            };
+        else
             this.state = {
                 id : props.element.id,
                 name : props.element.username,
@@ -104,6 +116,7 @@ class UserItem extends React.Component {
         //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.estate + " newState " + newState1);
         //console.log("token ", tokenData.data);
         Axios.defaults.headers.common['Authorization'] = tokenData.data;
+        Axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
         Axios.put(
                 url
                 + "/" + this.state.id 
@@ -166,7 +179,7 @@ class UserItem extends React.Component {
         console.log("accept = ", accept);
         var stringAccept = (accept===true) ? "true" : "false";
         console.log("string accept ", stringAccept);
-        Axios.post(
+        Axios.put(
             url + "/" + this.state.name + "?accept=" + stringAccept
         ).then((res) => {
     
@@ -298,14 +311,14 @@ class UserItem extends React.Component {
                 return <div>
                     <h3>{ this.state.name }</h3>
                     <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
-                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", true, Constant.user_registration)}>An toan</button>
-                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_EMERGENCY", true, Constant.user_registration)}>Nguy hiem</button>
+                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", true, Constant.emergency_location_regis)}>An toan</button>
+                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_EMERGENCY", true, Constant.emergency_location_regis)}>Nguy hiem</button>
                 </div>
             else
                 return <div>
                     <h3>{ this.state.name }</h3>
                     <button type="button" onClick={()=>this.xemChitiet()}>Chi tiet</button>
-                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", true, Constant.user_registration)}>An toan</button>
+                    <button type="button" onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", true, Constant.emergency_location_regis)}>An toan</button>
                 </div>
         }
     }

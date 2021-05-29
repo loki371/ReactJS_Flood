@@ -90,7 +90,13 @@ class Dashboard extends React.Component {
             console.log("loading : item name = ", item.name, " -> accepted");
           }
         }
-      )
+      );
+
+      this.setState({
+        dataAccept: dataAccept,
+        dataRequest: dataRequest
+      });
+      
     })
     .catch(function() {
       console.log("error in get resource with token -> login again");
