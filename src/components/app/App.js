@@ -9,7 +9,7 @@ import Logout from "../logout/Logout";
 import ReactDOM from 'react-dom';
 
 
-const { tokenData } = UserData();
+const { tokenData, usernameData, roleData, wardData } = UserData();
 
 class App extends React.Component {
   constructor(props) {
@@ -46,9 +46,11 @@ class App extends React.Component {
   }
 
   render() {
-    //if(!tokenData.data) {
-    //  return <Login/>;
-    //}
+    console.log("roleData = " + roleData.data);
+
+    if(!tokenData.data) {
+      return <Login/>;
+    }
 
     return (
       <div className="wrapper">
@@ -73,13 +75,13 @@ class App extends React.Component {
                   <ul class="navbar-nav mr-auto">
 
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Tên user: {tokenData.usernameData}</a>
+                      <a class="nav-link" href="#">Tên user: {usernameData.data}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Vai trò: {tokenData.roleData}</a>
+                      <a class="nav-link" href="#">Vai trò: {roleData.data[0].split('_')[1]}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Xã: {tokenData.wardData}</a>
+                      <a class="nav-link" href="#">Xã: {wardData.data}</a>
                     </li>
                   </ul>
 
@@ -91,11 +93,11 @@ class App extends React.Component {
 
               <div class="row" style={{margin: "0px", paddingTop: "5px", paddingBottom: "5px", paddingLeft: "0px", paddingRight: "0px"}}>
 
-                <div class = "col-2 btn-group-vertical" style={{height:'200px'}}>
-                  <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xet duyet danh sach</button>
-                  <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Tinh trang lu lut</button>
-                  <button type="button" class="btn btn-secondary" onClick={() => this.loadNoiLamViec()}>Dang ky xa lam viec</button>
-                  <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thong tin ca nhan</button>
+                <div class = "col-3 btn-group-vertical" style={{height:'200px'}}>
+                  <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xét duyệt danh sách</button>
+                  <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Tình trạng lũ lụt</button>
+                  <button type="button" class="btn btn-secondary" onClick={() => this.loadNoiLamViec()}>Đăng ký địa phương</button>
+                  <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
                 <div class = "col-8" id="mainboard">
@@ -135,10 +137,10 @@ class App extends React.Component {
 
               <div class="row" style={{margin: "0px", paddingTop: "5px", paddingBottom: "5px", paddingLeft: "0px", paddingRight: "0px"}}>
 
-                <div class = "col-2 btn-group-vertical" style={{height:'200px'}}>
-                  <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xet duyet danh sach</button>
-                  <button type="button" class="btn btn-secondary" onClick={() => this.loadNoiLamViec()}>Dang ky xa lam viec</button>
-                  <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thong tin ca nhan</button>
+                <div class = "col-3 btn-group-vertical" style={{height:'200px'}}>
+                  <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xét duyệt danh sách</button>
+                  <button type="button" class="btn btn-secondary" onClick={() => this.loadNoiLamViec()}>Đăng ký địa phương</button>
+                  <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
                 <div class = "col-8" id="mainboard">

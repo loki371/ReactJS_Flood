@@ -12,6 +12,9 @@ const address = {
 
     login_client: WEB_SERVICE_ADRESS + "/login",
     dashboard_client: WEB_SERVICE_ADRESS + "/dashboard",
+    
+    authority_client: WEB_SERVICE_ADRESS + "/dashboard/authorities",
+    volunteer_client: WEB_SERVICE_ADRESS + "/dashboard/volunteers",
 
     user_registration: FLOOD_SERVICE_ADDRESS + "/registrations/AtLocation",
     

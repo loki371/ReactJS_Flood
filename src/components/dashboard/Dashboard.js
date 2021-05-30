@@ -24,9 +24,9 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    // if (!checkValidToken()) {
-    //   this.props.history.push(Constant.login_client);
-    // }
+    if (!checkValidToken()) {
+      this.props.history.push(Constant.login_client);
+    }
   }
 
   componentWillUnmount() {}
@@ -212,18 +212,32 @@ class Dashboard extends React.Component {
     const element = 
     <div>      
       <div id="buttons">
-        {/* {roleData.data.map(role => this.renderclonegido(role))} */}
+        {roleData.data.map(role => this.renderclonegido(role))}
       </div>
 
       <div class="row">
         <div class="column">
           <h3>Request: </h3>
-          <div id="requests">{ dataRequest.map(item => <UserItem element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>) }</div>
+          <div id="requests" class="list-group">
+            { 
+              dataRequest.map(item => 
+                <UserItem class="list-group-item list-group-item-action list-group-item-dark"
+                  element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>
+                  ) 
+            }
+          </div>
         </div>
 
         <div class="column">
           <h3>Accepted: </h3>
-          <div id="accepted">{ dataAccept.map(item => <UserItem element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>) }</div>
+          <div id="accepted" class="list-group">
+            { 
+              dataAccept.map(item => 
+                <UserItem class="list-group-item list-group-item-action list-group-item-primary" 
+                  element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>
+                  ) 
+            }
+          </div>
         </div>
       </div>
       

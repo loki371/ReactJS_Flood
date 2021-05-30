@@ -23,7 +23,18 @@ export default function Login() {
   const [password, setPassword] = useState();
 
   if (tokenData.data) {
-    window.location.replace(Constant.dashboard_client);
+    for (var role of roleData.data) {
+      if (role === "ROLE_AUTHORITY") {
+        window.location.replace(Constant.authority_client);
+      
+        return <div style = {{height:"10000px"}}></div>;
+      }
+    else {
+        window.location.replace(Constant.volunteer_client);
+
+        return <div style = {{height:"10000px"}}></div>;
+      }
+    }
   }
 
   const handleSubmit = async e => {
@@ -43,8 +54,16 @@ export default function Login() {
       
       console.log(data.roles);
       
-      window.location.replace(Constant.dashboard_client);
-
+      for (var role of data.roles) {
+        if (role === "ROLE_AUTHORITY") {
+          window.location.replace(Constant.authority_client);
+          break;
+        }
+      else {
+          window.location.replace(Constant.volunteer_client);
+          break;
+        }
+      }
       return;
       
     } else {
