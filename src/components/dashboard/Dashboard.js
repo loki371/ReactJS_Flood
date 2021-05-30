@@ -187,16 +187,16 @@ class Dashboard extends React.Component {
   renderclonegido(role) {
     switch(role) {
       case "ROLE_AUTHORITY":
-        return <div>
-          <button type="button" onClick={()=>this.loadUserRegistrationAuthority()}>User Registration</button>
-          <button type="button" onClick={()=>this.loadAuthorityRegistrationAuthority()}>Authority Registration</button>
-          <button type="button" onClick={()=>this.loadVolunteerRegistrationAuthority()}>Volunteer Registration</button>
-          <button type="button" onClick={()=>this.loadRescuerRegistrationAuthority()}>Rescuer Registration</button>
+        return <div style={{marginBottom:"2px"}} >
+          <button type="button" class="btn btn-outline-primary" style={{marginRight:"2px"}} onClick={()=>this.loadUserRegistrationAuthority()}>User Registration</button>
+          <button type="button" class="btn btn-outline-secondary" style={{marginRight:"2px"}} onClick={()=>this.loadAuthorityRegistrationAuthority()}>Authority Registration</button>
+          <button type="button" class="btn btn-outline-warning" style={{marginRight:"2px"}} onClick={()=>this.loadVolunteerRegistrationAuthority()}>Volunteer Registration</button>
+          <button type="button" class="btn btn-outline-info" style={{marginRight:"2px"}} onClick={()=>this.loadRescuerRegistrationAuthority()}>Rescuer Registration</button>
         </div>;
 
       case "ROLE_VOLUNTEER":
         return <div>
-          <button type="button" onClick={()=>this.loadUserRegistrationVolunteer()}>User Registration</button>
+          <button type="button" class="btn btn-outline-primary" style={{marginRight:"2px"}} onClick={()=>this.loadUserRegistrationVolunteer()}>User Registration</button>
         </div>;
 
       default:
@@ -215,25 +215,25 @@ class Dashboard extends React.Component {
         {roleData.data.map(role => this.renderclonegido(role))}
       </div>
 
-      <div class="row">
-        <div class="column">
-          <h3>Request: </h3>
-          <div id="requests" class="list-group">
+      <div class="row" style={{marginTop:'10px'}}>
+        <div class="col" style={{paddingRight:"0px"}}>
+          <h6 class = "bg-danger" style={{textAlign:"center", width:'100%', height: '100%',  paddingTop: "3px", color:'white'}}>Danh sách yêu cầu: </h6>
+          <div id="requests">
             { 
               dataRequest.map(item => 
-                <UserItem class="list-group-item list-group-item-action list-group-item-dark"
+                <UserItem
                   element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>
                   ) 
             }
           </div>
         </div>
 
-        <div class="column">
-          <h3>Accepted: </h3>
-          <div id="accepted" class="list-group">
+        <div class="col">
+          <h6 class="bg-success" style={{textAlign:"center", width:'100%', height: '100%', paddingTop: "3px", color:'white'}}>Danh sách xác nhận: </h6>
+          <div id="accepted">
             { 
               dataAccept.map(item => 
-                <UserItem class="list-group-item list-group-item-action list-group-item-primary" 
+                <UserItem
                   element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>
                   ) 
             }

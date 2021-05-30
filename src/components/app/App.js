@@ -91,7 +91,7 @@ class App extends React.Component {
 
               </nav>
 
-              <div class="row" style={{margin: "0px", paddingTop: "5px", paddingBottom: "5px", paddingLeft: "0px", paddingRight: "0px"}}>
+              <div class="row" style={{margin: "0px", paddingTop: "5px", paddingBottom: "5px", paddingLeft: "0px", paddingRight: "0px", width:'100%'}}>
 
                 <div class = "col-3 btn-group-vertical" style={{height:'200px'}}>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xét duyệt danh sách</button>
@@ -100,8 +100,16 @@ class App extends React.Component {
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
-                <div class = "col-8" id="mainboard">
+                <div class = "col-8" id="mainboard" style={{width:'100%'}}>
                   {this.state.showRequestAccept?<Dashboard/>:null}
+                </div>
+              </div>
+              
+              <div style={{alignItems: 'center', color: 'white', margin: '0px', padding: '20px'}} class="bg-primary">
+                <div class="col">
+                  <div>Trang web Cứu nạn Lũ lụt</div>
+                  <div>Email 1712210@student.hcmus.edu.vn</div>
+                  <div>Phone 0935624754</div>
                 </div>
               </div>
             </Route>
@@ -143,8 +151,16 @@ class App extends React.Component {
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
-                <div class = "col-8" id="mainboard">
+                <div class = "col" id="mainboard" style={{width:'100%'}}>
                   {this.state.showRequestAccept?<Dashboard/>:null}
+                </div>
+              </div>
+
+              <div style={{alignItems: 'center', color: 'white', margin: '0px', padding: '20px'}} class="bg-primary">
+                <div class="col">
+                  <div>Trang web Cứu nạn Lũ lụt</div>
+                  <div>Email 1712210@student.hcmus.edu.vn</div>
+                  <div>Phone 0935624754</div>
                 </div>
               </div>
             </Route>
@@ -156,13 +172,6 @@ class App extends React.Component {
           </Switch>
         </BrowserRouter>
 
-        <div style={{alignItems: 'center', color: 'white', margin: '0px', padding: '20px'}} class="bg-primary">
-          <div class="col">
-            <div>Trang web Cứu nạn Lũ lụt</div>
-            <div>Email 1712210@student.hcmus.edu.vn</div>
-            <div>Phone 0935624754</div>
-          </div>
-        </div>
       
       </div>
     );
