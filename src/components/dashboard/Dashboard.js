@@ -2,7 +2,6 @@ import React from 'react';
 import './Dashboard.css';
 
 import Constant from '../../constant'
-import Logout from "../logout/Logout"
 import UserData from "../app/UserData"
 import Axios from "axios";
 import UserItem from './UserItem';
@@ -25,9 +24,9 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    if (!checkValidToken()) {
-      this.props.history.push(Constant.login_client);
-    }
+    // if (!checkValidToken()) {
+    //   this.props.history.push(Constant.login_client);
+    // }
   }
 
   componentWillUnmount() {}
@@ -211,12 +210,9 @@ class Dashboard extends React.Component {
     var dataRequest = this.state.dataRequest;
 
     const element = 
-    <div>
-      <h2>Dashboard: </h2>
-      
+    <div>      
       <div id="buttons">
-        <button type="button" onClick={Logout}>Logout!</button>
-        {roleData.data.map(role => this.renderclonegido(role))}
+        {/* {roleData.data.map(role => this.renderclonegido(role))} */}
       </div>
 
       <div class="row">
@@ -232,6 +228,7 @@ class Dashboard extends React.Component {
       </div>
       
     </div>;
+
     return element;
   }
 }

@@ -55,7 +55,7 @@ export default function Login() {
   }
 
   return(
-    <div class="mx-auto" style={{width: '500px'}}>
+    <div class="mx-auto" style={{width: '500px', marginBottom: '150px'}}>
       <div class="container">
         <div class="row justify-content-md-center">
           <h1 class = "text-center">Cứu nạn Miền Trung</h1>
@@ -69,10 +69,14 @@ export default function Login() {
               <input type="password" onChange={e => setPassword(e.target.value)} class = "text-center input-radius"/>
             </label>
             <div style={{marginTop: '10px'}}>
-              <button type="submit" class="btn btn-success" style={{width: '100px'}}>Login</button>
+              <button type="submit" class="btn btn-success" style={{width: '150px'}}>Đăng nhập</button>
             </div>
           </form>
         </div>
+      </div>
+
+      <div style={{width: '300px'}} class = "text-center mx-auto">
+        <button class="btn btn-primary" style={{width: '200px', marginTop:'50px'}}>Đăng ký tài khoản</button>
       </div>
     </div>
   )
