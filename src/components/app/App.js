@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import './App.css';
 import Dashboard from '../dashboard/Dashboard';
 import Login from '../login/Login';
 import UserData from './UserData';
 import Logout from "../logout/Logout";
 import Constant from "../../constant";
+import Ward from "../wardRegis/Ward";
 
 const { tokenData, usernameData, roleData, wardData } = UserData();
 
@@ -61,7 +61,7 @@ class App extends React.Component {
   render() {
     console.log("roleData = " + roleData.data);
 
-    if(!tokenData.data && !Constant.isTest) {
+    if(!tokenData.data) {
       return <Login/>;
     }
 
@@ -115,6 +115,7 @@ class App extends React.Component {
 
                 <div class = "col" id="mainboard">
                   {this.state.showRequestAccept?<Dashboard/>:null}
+                  {this.state.showNoiLamViec?<Ward/>:null}
                 </div>
               </div>
               

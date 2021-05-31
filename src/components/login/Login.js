@@ -18,7 +18,7 @@ async function loginUser(credentials) {
  }
 
 export default function Login() {
-  const { tokenData, usernameData, roleData, wardData } = UserData();
+  const { tokenData, usernameData, roleData, wardData, districtData, provinceData } = UserData();
 
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
@@ -39,6 +39,16 @@ export default function Login() {
   }
 
   const handleSubmit = async e => {
+    if (Constant.isTest) {
+      tokenData.set("123");
+      usernameData.set("Testing 1");
+      roleData.set("ROLE_AUTHORITY");
+      wardData.set("Xa Hoa Nhon");
+      districtData.set("Huyen Hoa Vang");
+      provinceData.set("TP Da Nang");
+      window.location.replace(Constant.authority_client);
+      return;
+    }
 
     e.preventDefault();
     const data = await loginUser({
@@ -75,6 +85,8 @@ export default function Login() {
       ).then((res) => {
         console.log("result getWard: ", res);
         wardData.set(res.data.ward);
+        districtData.set(res.data.district);
+        provinceData.set(res.data.province);
       });
       
       for (var role of data.roles) {

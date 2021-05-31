@@ -2,10 +2,8 @@ const HEAD_ADRESS = "http://";
 
 const FLOOD_SERVICE_ADDRESS = HEAD_ADRESS + "34.126.148.60:8080/v1/api";
 const LOGIN_SERVICE_ADDRESS = HEAD_ADRESS + "34.126.148.60:8080/v1/api/auth";
-// const SEARCH_SERVICE_ADDRESS = HEAD_ADRESS + "127.0.0.1:8000";
+const SEARCH_SERVICE_ADDRESS = HEAD_ADRESS + "127.0.0.1:8000";
 const WEB_SERVICE_ADRESS = HEAD_ADRESS + "127.0.0.1:3000";
-
-const isTest = false;
 
 const address = {
     login_server : LOGIN_SERVICE_ADDRESS + "/signin",
@@ -26,7 +24,7 @@ const address = {
     get_ward_authority : FLOOD_SERVICE_ADDRESS + "/authorities",
     get_ward_volunteer : FLOOD_SERVICE_ADDRESS + "/volunteers",
 
-    isTest : isTest
+    isTest: true
 };
 
 export default address;
