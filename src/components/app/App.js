@@ -6,8 +6,7 @@ import Dashboard from '../dashboard/Dashboard';
 import Login from '../login/Login';
 import UserData from './UserData';
 import Logout from "../logout/Logout";
-import ReactDOM from 'react-dom';
-
+import Constant from "../../constant";
 
 const { tokenData, usernameData, roleData, wardData } = UserData();
 
@@ -48,7 +47,7 @@ class App extends React.Component {
   render() {
     console.log("roleData = " + roleData.data);
 
-    if(!tokenData.data) {
+    if(!tokenData.data && !Constant.isTest) {
       return <Login/>;
     }
 
@@ -100,7 +99,7 @@ class App extends React.Component {
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
-                <div class = "col-8" id="mainboard" style={{width:'100%'}}>
+                <div class = "col" id="mainboard">
                   {this.state.showRequestAccept?<Dashboard/>:null}
                 </div>
               </div>

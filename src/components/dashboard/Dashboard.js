@@ -217,7 +217,7 @@ class Dashboard extends React.Component {
 
       <div class="row" style={{marginTop:'10px'}}>
         <div class="col" style={{paddingRight:"0px"}}>
-          <h6 class = "bg-danger" style={{textAlign:"center", width:'100%', height: '100%',  paddingTop: "3px", color:'white'}}>Danh sách yêu cầu: </h6>
+          <h6 class = "bg-danger" style={{textAlign:"center", width:'100%', height: '30px',  paddingTop: "3px", color:'white', borderRadius: '4px'}}>Danh sách yêu cầu: </h6>
           <div id="requests">
             { 
               dataRequest.map(item => 
@@ -229,7 +229,7 @@ class Dashboard extends React.Component {
         </div>
 
         <div class="col">
-          <h6 class="bg-success" style={{textAlign:"center", width:'100%', height: '100%', paddingTop: "3px", color:'white'}}>Danh sách xác nhận: </h6>
+          <h6 class="bg-success" style={{textAlign:"center", width:'100%', height: '30px', paddingTop: "3px", color:'white', borderRadius: '4px'}}>Danh sách xác nhận: </h6>
           <div id="accepted">
             { 
               dataAccept.map(item => 
