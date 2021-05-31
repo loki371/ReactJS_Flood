@@ -16,7 +16,21 @@ class App extends React.Component {
     this.state = {
       showRequestAccept : false,
       showNoiLamViec: false,
-      showUserInfo: false
+      showUserInfo: false,
+      userName: '',
+      role: '',
+      ward: ''
+    }
+
+    if (tokenData.data !== null) {
+      this.state = {
+        showRequestAccept : false,
+        showNoiLamViec: false,
+        showUserInfo: false,
+        userName: usernameData.data,
+        role: roleData.data[0].split('_')[1],
+        ward: wardData.data
+      };
     }
   }
 
@@ -74,13 +88,13 @@ class App extends React.Component {
                   <ul class="navbar-nav mr-auto">
 
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Tên user: {usernameData.data}</a>
+                      <a class="nav-link" href="#">Tên user: {this.state.userName}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Vai trò: {roleData.data[0].split('_')[1]}</a>
+                      <a class="nav-link" href="#">Vai trò: {this.state.role}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Xã: {wardData.data}</a>
+                      <a class="nav-link" href="#">Xã: {this.state.ward}</a>
                     </li>
                   </ul>
 
@@ -126,13 +140,13 @@ class App extends React.Component {
                   <ul class="navbar-nav mr-auto">
 
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Tên user: {tokenData.usernameData}</a>
+                      <a class="nav-link" href="#">Tên user: {this.state.userName}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Vai trò: {tokenData.roleData}</a>
+                      <a class="nav-link" href="#">Vai trò: {this.state.role}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Xã: {tokenData.wardData}</a>
+                      <a class="nav-link" href="#">Xã: {this.state.ward}</a>
                     </li>
                   </ul>
 

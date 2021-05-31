@@ -215,8 +215,8 @@ class Dashboard extends React.Component {
         {roleData.data.map(role => this.renderclonegido(role))}
       </div>
 
-      <div class="row" style={{marginTop:'10px'}}>
-        <div class="col" style={{paddingRight:"0px"}}>
+      <div class="row" style={{marginTop:'10px', height: '600px', overflow: 'auto'}}>
+        <div class="col" style={{padding:"2px", borderStyle: 'groove',  borderRadius: '4px', backgroundColor:'rgb(176, 196, 222)'}}>
           <h6 class = "bg-danger" style={{textAlign:"center", width:'100%', height: '30px',  paddingTop: "3px", color:'white', borderRadius: '4px'}}>Danh sách yêu cầu: </h6>
           <div id="requests">
             { 
@@ -228,7 +228,7 @@ class Dashboard extends React.Component {
           </div>
         </div>
 
-        <div class="col">
+        <div class="col" style={{padding:"2px", borderStyle: 'groove',  borderRadius: '4px', backgroundColor:'rgb(176, 196, 222)'}}>
           <h6 class="bg-success" style={{textAlign:"center", width:'100%', height: '30px', paddingTop: "3px", color:'white', borderRadius: '4px'}}>Danh sách xác nhận: </h6>
           <div id="accepted">
             { 
