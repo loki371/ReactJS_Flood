@@ -42,7 +42,7 @@ export default function Login() {
     if (Constant.isTest) {
       tokenData.set("123");
       usernameData.set("Testing 1");
-      roleData.set("ROLE_AUTHORITY");
+      roleData.set(["ROLE_AUTHORITY"]);
       wardData.set("Xa Hoa Nhon");
       districtData.set("Huyen Hoa Vang");
       provinceData.set("TP Da Nang");
