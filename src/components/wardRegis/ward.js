@@ -27,6 +27,7 @@ class Ward extends React.Component {
       province: 'TP Da Nang',
 
       wardId: "",
+      trangthai: "",
 
       showRegisForm: false,
 
@@ -112,7 +113,8 @@ class Ward extends React.Component {
       showRegisForm: false,
       ward: 'Xa Hoa Nhon',
       district: 'Huyen Hoa Vang',
-      province: 'TP Da Nang'
+      province: 'TP Da Nang',
+      trangthai: "REJECT"
     })
   }
 
@@ -183,6 +185,8 @@ class Ward extends React.Component {
             <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.province}</div>
             <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.district}</div>
             <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.ward}</div>
+            <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.trangthai}</div>
+
             <button type="button" class="btn col col-sm-1 btn-danger" style={{width:"150px", height: "50px", marginRight: "20px", marginLeft: "20px", marginTop: "8px"}} 
               onClick={() => this.sendDeleteRegister()}>Xóa đăng ký</button>
           </div>
