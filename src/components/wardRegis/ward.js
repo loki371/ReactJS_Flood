@@ -1,5 +1,7 @@
 import React from 'react';
-import jQuery from 'jquery'
+import jQuery from 'jquery';
+import Constant from "../../constant";
+import Axios from "axios";
 
 import UserData from '../app/UserData';
 
@@ -20,20 +22,26 @@ class Ward extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ward: 'Xa Tan Chinh',
-      district: 'Huyen Tan Binh',
-      province: 'TP HoChiMinh',
+      ward: 'Xa Hoa Nhon',
+      district: 'Huyen Hoa Vang',
+      province: 'TP Da Nang',
+
+      wardId: "",
+
+      showRegisForm: false,
 
       subXa: [],
       subHuyen: []
     }
 
     // if (wardData.data !== null) {
-    //     this.state = {
+    //     this.setState({
     //         ward : wardData.data,
     //         district: districtData.data,
-    //         province: provinceData.data
-    //     };
+    //         province: provinceData.data,
+
+              //  showRegisForm: false,
+    //     });
     // }
   }
 
@@ -51,6 +59,8 @@ class Ward extends React.Component {
       district: "",
       ward: "",
 
+      wardId: "",
+
       subHuyen: subHuyen,
       subXa: []
     });
@@ -67,15 +77,60 @@ class Ward extends React.Component {
 
     this.setState({
       district: value, 
-      subXa: subXa
+      subXa: subXa,
+      wardId: ""
     });
   }
 
   changeWard(e) {
     let {name, value} = e.target;
+
     this.setState({
-      ward : value
+      ward : value,
+      wardId: value
     });
+  }
+
+  sendRegisterLocation() {
+    if (this.state.wardId === "") {
+      alert("Bạn phải chọn đầy đủ thông tin địa phương");
+      return;
+    }
+
+    var baseUrl = roleData.data[0] === "ROLE_VOLUNTEER" ? Constant.volu_location_regis : Constant.auth_location_regis;
+    baseUrl = baseUrl + "/" + this.state.wardId + "?eRole=" + roleData.data[0];
+    console.log("url = " + baseUrl);
+
+    Axios.defaults.headers.common['Authorization'] = tokenData.data;
+    Axios.post(
+      baseUrl
+    ).then((res) => {
+      console.log("result: ", res);
+    });
+
+    this.setState({
+      showRegisForm: false,
+      ward: 'Xa Hoa Nhon',
+      district: 'Huyen Hoa Vang',
+      province: 'TP Da Nang'
+    })
+  }
+
+  sendDeleteRegister() {
+    var baseUrl = roleData.data[0] === "ROLE_VOLUNTEER" ? Constant.volu_location_regis : Constant.auth_location_regis;
+    baseUrl = baseUrl + "/" + this.state.wardId + "?eRole=" + roleData.data[0];
+    console.log("url = " + baseUrl);
+
+    Axios.defaults.headers.common['Authorization'] = tokenData.data;
+    Axios.delete(
+      baseUrl
+    ).then((res) => {
+      console.log("result: ", res);
+    });
+
+    this.setState({
+      showRegisForm: true
+    })
   }
 
   render() {
@@ -88,12 +143,14 @@ class Ward extends React.Component {
     var dangKyDiaPhuong = <div>Tinh - Huyen - Xa</div>
 
     return (
-      <div style={{marginLeft: '20px', margin:"20px", marginTop: "5px"}}>
+      <div style={{marginLeft: '20px', margin:"20px", marginTop: "5px", height: "500px"}}>
         <h5 style={{width: "100%", textAlign: "center", fontWeight: "bold"}}>Đăng ký địa phương</h5>
         
         <div style={{width: '100%', textAlign: "center", paddingTop: "10px" ,height: "50px", marginTop: "30px", borderStyle:"groove", borderRadius: "5px"}} class="row">
           <h6 style={{width: "20%"}} class="col-4">Địa phương làm việc:</h6> {khuVucLamViec}
         </div>
+
+        {this.state.showRegisForm ? 
 
         <div style={{width: '100%', textAlign: "center", height: "70px", marginTop: "20px", borderStyle:"groove", borderRadius: "5px"}} class="row">
           <div class="row" style={{padding: "0px", margin: "0px"}}>
@@ -113,9 +170,24 @@ class Ward extends React.Component {
                 {xa[1]}
               </option>})}
             </select>
-            <button type="button" class="btn col col-sm-1 btn-success" style={{width:"100px", height: "50px", marginRight: "20px", marginLeft: "20px", marginTop: "8px"}}>Đăng ký</button>
+            <button type="button" class="btn col col-sm-1 btn-success" style={{width:"100px", height: "50px", marginRight: "20px", marginLeft: "20px", marginTop: "8px"}} 
+              onClick={() => this.sendRegisterLocation()}>Đăng ký</button>
           </div>
         </div>
+
+        : 
+
+        <div style={{width: '100%', textAlign: "center", height: "70px", marginTop: "20px", borderStyle:"groove", borderRadius: "5px"}} class="row">
+          <div class="row" style={{padding: "0px", margin: "0px"}}>
+            <h6 style={{width: "20%", marginTop: "10px", paddingTop: "10px"}} class="col-4">Bản đăng ký:</h6>
+            <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.province}</div>
+            <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.district}</div>
+            <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.ward}</div>
+            <button type="button" class="btn col col-sm-1 btn-danger" style={{width:"150px", height: "50px", marginRight: "20px", marginLeft: "20px", marginTop: "8px"}} 
+              onClick={() => this.sendDeleteRegister()}>Xóa đăng ký</button>
+          </div>
+        </div>
+        }
       </div>
     );
   }
