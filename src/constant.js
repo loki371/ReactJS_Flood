@@ -24,7 +24,11 @@ const address = {
     get_ward_authority : FLOOD_SERVICE_ADDRESS + "/authorities",
     get_ward_volunteer : FLOOD_SERVICE_ADDRESS + "/volunteers",
 
-    isTest: true
+    regis_cors_cors : FLOOD_SERVICE_ADDRESS + "/locationRegistrations/wards/",
+
+    getMyRegis: FLOOD_SERVICE_ADDRESS + "/locationRegistrations/myRegistration/",
+
+    isTest: false
 };
 
 export default address;

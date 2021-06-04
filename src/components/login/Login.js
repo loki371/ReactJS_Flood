@@ -5,6 +5,17 @@ import UserData from "../app/UserData";
 import Constant from "../../constant";
 import Axios from "axios";
 
+const locationData = require('../../location.json');
+
+const quanList = [];
+for (var item of locationData["quan"]) quanList.push(item);
+
+const tinhList = [];
+for (var item of locationData["tinh"]) tinhList.push(item);
+
+const xaList = [];
+for (var item of locationData["xa"]) xaList.push(item);
+
 async function loginUser(credentials) {
   return fetch(Constant.login_server, {
     method: 'POST',
@@ -16,6 +27,31 @@ async function loginUser(credentials) {
   })
     .then(data => data.json())
  }
+
+function getHuyenFromXaId(xaId) {
+  var huyenId;
+  for (var item of xaList) {
+    if (item[0] == xaId) {
+      huyenId = item[3];
+    }
+  }
+  var huyen;
+  for (var item of quanList) {
+    if (item[0] == huyenId) {
+      huyen = item;
+      break;
+    }
+  }
+  return huyen;
+}
+
+function getTinhFromTinhId(tinhId) {
+  for (var item of tinhList) {
+    if (item[0] == tinhId)
+      return item;
+  }
+  return null;
+}
 
 export default function Login() {
   const { tokenData, usernameData, roleData, wardData, districtData, provinceData } = UserData();
@@ -83,24 +119,35 @@ export default function Login() {
       Axios.get(
         urlGetWard
       ).then((res) => {
-        console.log("result getWard: ", res);
-        wardData.set(res.data.ward);
-        districtData.set(res.data.district);
-        provinceData.set(res.data.province);
+        console.log("result getWard: ", res.data.data.ward);
+        wardData.set(res.data.data.ward);
+
+        if (res.data.data.ward != null) {
+          var district = getHuyenFromXaId(res.data.data.ward.id);
+          console.log("district = ", district);
+          districtData.set(district);
+
+          var province = getTinhFromTinhId(district[3]);
+          console.log("tinh = ", province);
+          provinceData.set(province);
+        } else {
+          districtData.set(null);
+          provinceData.set(null);
+        }
+
+        for (var role of data.roles) {
+          if (role === "ROLE_AUTHORITY") {
+            window.location.replace(Constant.authority_client);
+            break;
+          }
+        else {
+            window.location.replace(Constant.volunteer_client);
+            break;
+          }
+        }
+
       });
-      
-      for (var role of data.roles) {
-        if (role === "ROLE_AUTHORITY") {
-          window.location.replace(Constant.authority_client);
-          break;
-        }
-      else {
-          window.location.replace(Constant.volunteer_client);
-          break;
-        }
-      }
-      return;
-      
+            
     } else {
 
       console.log("login failed because of usernamePass");

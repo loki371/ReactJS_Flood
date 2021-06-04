@@ -31,6 +31,7 @@ class App extends React.Component {
         role: roleData.data[0].split('_')[1],
         ward: wardData.data
       };
+      console.log("wardData = ", wardData.data);
     }
   }
 
@@ -94,7 +95,7 @@ class App extends React.Component {
                       <a class="nav-link" href="#">Vai trò: {this.state.role}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Xã: {this.state.ward}</a>
+                      <a class="nav-link" href="#">{this.state.ward != null ? this.state.ward.name : ""}</a>
                     </li>
                   </ul>
 
@@ -113,7 +114,7 @@ class App extends React.Component {
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
-                <div class = "col" id="mainboard" style={{width:'100%', height: "500px"}}>
+                <div class = "col" id="mainboard" style={{width:'100%', height: "500px"}} >
                   {this.state.showRequestAccept?<Dashboard/>:null}
                   {this.state.showNoiLamViec?<Ward/>:null}
                 </div>
@@ -147,7 +148,7 @@ class App extends React.Component {
                       <a class="nav-link" href="#">Vai trò: {this.state.role}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">Xã: {this.state.ward}</a>
+                      <a class="nav-link" href="#">{this.state.ward != null ? this.state.ward.name : ""}</a>
                     </li>
                   </ul>
 
