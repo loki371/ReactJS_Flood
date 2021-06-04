@@ -131,6 +131,7 @@ class Ward extends React.Component {
 
     this.setState({
       tempProvince : this.getTinhFromTinhId(value)[1],
+
       wardId: "",
 
       subHuyen: subHuyen,
@@ -225,17 +226,17 @@ class Ward extends React.Component {
         <div style={{width: '100%', textAlign: "center", height: "70px", marginTop: "20px", borderStyle:"groove", borderRadius: "5px"}} class="row">
           <div class="row" style={{padding: "0px", margin: "0px"}}>
             <h6 style={{width: "20%", marginTop: "10px", paddingTop: "10px"}} class="col-4">Đăng ký địa phương:</h6>
-            <select class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}} defaultValue="Tỉnh" value={this.state.province} onChange={e => this.changeProvince(e)}>
+            <select class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}} defaultValue="Tỉnh" value={this.state.tempProvince} onChange={e => this.changeProvince(e)}>
               {tinhList.map(tinh => {return <option value={tinh[0]} style={{textAlign: "center"}}>
                 {tinh[1]}
               </option>})}
             </select>
-            <select class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}} defaultValue="Huyện" value={this.state.district} onChange={e => this.changeDistrict(e)}>
+            <select class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}} defaultValue="Huyện" value={this.state.tempDistrict} onChange={e => this.changeDistrict(e)}>
               {this.state.subHuyen.map(huyen => {return <option value = {huyen[0]} style={{textAlign: "center"}}>
                 {huyen[1]}
               </option>})}
             </select>
-            <select class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}} defaultValue="Xã" value={this.state.ward} onChange={e => this.changeWard(e)}>
+            <select class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}} defaultValue="Xã" value={this.state.tempWard} onChange={e => this.changeWard(e)}>
               {this.state.subXa.map(xa => {return <option value = {xa[0]} style={{textAlign: "center"}}>
                 {xa[1]}
               </option>})}
