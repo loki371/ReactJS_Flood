@@ -179,7 +179,7 @@ class UserItem extends React.Component {
         console.log("accept = ", accept);
         var stringAccept = (accept===true) ? "true" : "false";
         console.log("string accept ", stringAccept);
-        Axios.put(
+        Axios.post(
             url + "/" + this.state.name + "?accept=" + stringAccept
         ).then((res) => {
     
