@@ -5,8 +5,8 @@ import Dashboard from '../dashboard/Dashboard';
 import Login from '../login/Login';
 import UserData from './UserData';
 import Logout from "../logout/Logout";
-import Constant from "../../constant";
 import Ward from "../wardRegis/Ward";
+import FloodState from "../floodState/FloodState";
 
 const { tokenData, usernameData, roleData, wardData } = UserData();
 
@@ -17,6 +17,7 @@ class App extends React.Component {
       showRequestAccept : false,
       showNoiLamViec: false,
       showUserInfo: false,
+      showFloodState: false,
       userName: '',
       role: '',
       ward: ''
@@ -39,7 +40,8 @@ class App extends React.Component {
     this.setState({
       showRequestAccept : true,
       showNoiLamViec: false,
-      showUserInfo: false
+      showUserInfo: false,
+      showFloodState: false,
     });
   }
 
@@ -47,7 +49,8 @@ class App extends React.Component {
     this.setState({
       showRequestAccept : false,
       showNoiLamViec: true,
-      showUserInfo: false
+      showUserInfo: false,
+      showFloodState: false
     });
   }
 
@@ -55,7 +58,17 @@ class App extends React.Component {
     this.setState({
       showRequestAccept : false,
       showNoiLamViec: false,
-      showUserInfo: true
+      showUserInfo: true,
+      showFloodState: false
+    });
+  }
+
+  loadTinhTrangLuLut() {
+    this.setState({
+      showRequestAccept : false,
+      showNoiLamViec: false,
+      showUserInfo: false,
+      showFloodState: true
     });
   }
 
@@ -109,7 +122,7 @@ class App extends React.Component {
 
                 <div class = "col-2 btn-group-vertical" style={{height:'200px', marginTop: "30px"}}>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xét duyệt danh sách</button>
-                  <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Tình trạng lũ lụt</button>
+                  <button type="button" class="btn btn-secondary" onClick={() => this.loadTinhTrangLuLut()}>Tình trạng lũ lụt</button>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadNoiLamViec()}>Đăng ký địa phương</button>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
@@ -117,6 +130,7 @@ class App extends React.Component {
                 <div class = "col" id="mainboard" style={{width:'100%', height: "500px"}} >
                   {this.state.showRequestAccept?<Dashboard/>:null}
                   {this.state.showNoiLamViec?<Ward/>:null}
+                  {this.state.showFloodState?<FloodState/>:null}
                 </div>
               </div>
               
