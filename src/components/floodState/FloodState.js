@@ -26,6 +26,8 @@ class FloodState extends React.Component {
   }
 
   componentDidMount() {
+    if (wardData.data == null) 
+      return;
     Axios.defaults.headers.common['Authorization'] = tokenData.data;
 
     var url = Constant.floodNotification;

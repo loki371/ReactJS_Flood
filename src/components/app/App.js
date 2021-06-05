@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Dashboard from '../dashboard/Dashboard';
 import Login from '../login/Login';
+import Register from '../register/Register';
+
 import UserData from './UserData';
 import Logout from "../logout/Logout";
 import Ward from "../wardRegis/Ward";
@@ -76,7 +78,8 @@ class App extends React.Component {
   render() {
     console.log("roleData = " + roleData.data);
 
-    if(!tokenData.data) {
+    var listURL = window.location.href.split("/");
+    if(!tokenData.data && listURL[listURL.length-1] != "register") {
       return <Login/>;
     }
 
@@ -88,6 +91,10 @@ class App extends React.Component {
             
             <Route path="/login">
               <Login />
+            </Route>
+
+            <Route path="/register">
+              <Register />
             </Route>
 
             <Route path="/dashboard/authorities">

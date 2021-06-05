@@ -53,6 +53,10 @@ function getTinhFromTinhId(tinhId) {
   return null;
 }
 
+function dangkyTaiKhoan() {
+  window.location.replace(Constant.register_client);
+}
+
 export default function Login() {
   const { tokenData, usernameData, roleData, wardData, districtData, provinceData } = UserData();
 
@@ -170,14 +174,14 @@ export default function Login() {
               <input type="password" onChange={e => setPassword(e.target.value)} class = "text-center input-radius"/>
             </label>
             <div style={{marginTop: '10px'}}>
-              <button type="submit" class="btn btn-success" style={{width: '150px'}}>Đăng nhập</button>
+              <button type="submit" class="btn btn-success" style={{width: '150px', fontWeight: "bold"}}>Đăng nhập</button>
             </div>
           </form>
         </div>
       </div>
 
       <div style={{width: '300px'}} class = "text-center mx-auto">
-        <button class="btn btn-primary" style={{width: '200px', marginTop:'50px'}}>Đăng ký tài khoản</button>
+        <button class="btn btn-secondary" style={{width: '200px', marginTop:'50px', fontWeight: "bold"}} onClick={() => dangkyTaiKhoan()}>Đăng ký tài khoản</button>
       </div>
     </div>
   )

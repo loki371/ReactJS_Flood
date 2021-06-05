@@ -97,6 +97,8 @@ class UserInfomation extends React.Component {
     ).then((res) => {
       console.log("result: ", res.data.data);
       alert("Cập nhật thông tin thành công");
+    }).catch((err) => {
+      alert(err);
     });
   }
 
