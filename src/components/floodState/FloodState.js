@@ -7,17 +7,6 @@ import UserData from '../app/UserData';
 
 const { tokenData, usernameData, roleData, wardData, districtData, provinceData } = UserData();
 
-const locationData = require('../../location.json');
-
-const quanList = [];
-for (var item of locationData["quan"]) quanList.push(item);
-
-const tinhList = [];
-for (var item of locationData["tinh"]) tinhList.push(item);
-
-const xaList = [];
-for (var item of locationData["xa"]) xaList.push(item);
-
 class FloodState extends React.Component {
   constructor(props) {
     super(props);

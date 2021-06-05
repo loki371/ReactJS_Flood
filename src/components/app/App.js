@@ -7,6 +7,7 @@ import UserData from './UserData';
 import Logout from "../logout/Logout";
 import Ward from "../wardRegis/Ward";
 import FloodState from "../floodState/FloodState";
+import UserInformation from "../userInformation/UserInfomation";
 
 const { tokenData, usernameData, roleData, wardData } = UserData();
 
@@ -131,6 +132,7 @@ class App extends React.Component {
                   {this.state.showRequestAccept?<Dashboard/>:null}
                   {this.state.showNoiLamViec?<Ward/>:null}
                   {this.state.showFloodState?<FloodState/>:null}
+                  {this.state.showUserInfo?<UserInformation/>:null}
                 </div>
               </div>
               
@@ -183,6 +185,7 @@ class App extends React.Component {
                 <div class = "col" id="mainboard" style={{width:'100%', height: "500px"}}>
                   {this.state.showRequestAccept?<Dashboard/>:null}
                   {this.state.showNoiLamViec?<Ward/>:null}
+                  {this.state.showUserInfo?<UserInformation/>:null}
                 </div>
               </div>
 
