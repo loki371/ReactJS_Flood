@@ -1,10 +1,10 @@
 const HEAD_ADRESS = "http://";
 
-const FINAL_IP = "34.126.187.47";
+const FINAL_IP = "34.126.148.60";
 const FLOOD_SERVICE_ADDRESS = HEAD_ADRESS + FINAL_IP + ":8080/v1/api";
 const LOGIN_SERVICE_ADDRESS = HEAD_ADRESS + FINAL_IP + ":8080/v1/api/auth";
 const SEARCH_SERVICE_ADDRESS = HEAD_ADRESS + FINAL_IP + ":8000";
-const WEB_SERVICE_ADRESS = HEAD_ADRESS + "127.0.0.1:3000";
+const WEB_SERVICE_ADRESS = HEAD_ADRESS + FINAL_IP + ":8081";
 
 const address = {
     login_server : LOGIN_SERVICE_ADDRESS + "/signin",
