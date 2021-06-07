@@ -68,12 +68,14 @@ class UserItem extends React.Component {
                 source: null,
                 avatar: 0   // chua show
             };
+        this.state.textBtxChiTiet = "Chi tiết";
     }
 
     xemChitiet() {
         if (this.state.showChiTiet == true) {
             this.setState({
-                showChiTiet: false
+                showChiTiet: false,
+                textBtxChiTiet: "Chi tiết"
             });
             return;    
         }
@@ -90,12 +92,14 @@ class UserItem extends React.Component {
             this.setState({
                 showChiTiet: !this.state.showChiTiet,
                 source: Constant.python_service + "/" + res.data[0].url,
+                textBtxChiTiet: "Ẩn",
                 avatar: 2
             });
         }).catch(() => {
             
             this.setState({
                 showChiTiet: !this.state.showChiTiet,
+                textBtxChiTiet: "Ẩn",
                 avatar: 1
             });
         });
@@ -307,7 +311,7 @@ class UserItem extends React.Component {
                             
                             <div class = "col col-md-2" style={{alignItems: "right"}}>
                                 <button class = "row btn btn-success btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_AUTHENTICATED", true, Constant.accept_reject_user_regis)}>Thêm</button>
-                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>{this.state.textBtxChiTiet}</button>
                             </div>
                         </div>
                         {this.state.showChiTiet ? thongTinChiTiet : null}
@@ -325,7 +329,7 @@ class UserItem extends React.Component {
 
                             <div class = "col col-md-2" style={{alignItems: "right"}}>
                                 <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_UNAUTHENTICATED", false, Constant.accept_reject_user_regis )}>Xóa</button>
-                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>{this.state.textBtxChiTiet}</button>
                             </div>
                         </div>
                         {this.state.showChiTiet ? thongTinChiTiet : null}
@@ -449,7 +453,7 @@ class UserItem extends React.Component {
                             <div class = "col col-md-3" style={{alignItems: "right"}}>
                                 <button class = "row btn btn-danger btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_EMERGENCY", true, Constant.emergency_location_regis)}>Nguy hiểm</button>
                                 <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", false, Constant.emergency_location_regis)}>An toàn</button>
-                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px", marginTop: '2px'}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px", marginTop: '2px'}} onClick={()=>this.xemChitiet()}>{this.state.textBtxChiTiet}</button>
                             </div>
                         </div>
                         {this.state.showChiTiet ? thongTinChiTiet : null}
@@ -465,7 +469,7 @@ class UserItem extends React.Component {
                             </div>
                             <div class = "col col-md-2" style={{alignItems: "right"}}>
                                 <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", false, Constant.emergency_location_regis)}>An toàn</button>
-                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>{this.state.textBtxChiTiet}</button>
                             </div>
                         </div>
                         {this.state.showChiTiet ? thongTinChiTiet : null}
