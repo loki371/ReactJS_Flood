@@ -380,7 +380,7 @@ class UserItem extends React.Component {
                         <div class = "col col-md-2" style={{alignItems: "right"}}>
                             <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", false, Constant.emergency_location_regis)}>An toàn</button>
                             <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
-                        </div>
+                            </div>
                     </div>;
         }
     }

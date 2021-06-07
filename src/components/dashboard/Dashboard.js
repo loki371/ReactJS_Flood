@@ -237,9 +237,9 @@ class Dashboard extends React.Component {
           <h6 class = "bg-danger" style={{textAlign:"center", width:'100%', height: '30px',  paddingTop: "3px", color:'white', borderRadius: '4px'}}>Danh sách yêu cầu: </h6>
           <div id="requests">
             { 
-              dataRequest.map(item => 
+              dataRequest.map((item, index) => 
                 <UserItem
-                  element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>
+                  element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole} key={item.id + "_" + item.username} />
                   ) 
             }
           </div>
@@ -249,9 +249,9 @@ class Dashboard extends React.Component {
           <h6 class="bg-success" style={{textAlign:"center", width:'100%', height: '30px', paddingTop: "3px", color:'white', borderRadius: '4px'}}>Danh sách xác nhận: </h6>
           <div id="accepted">
             { 
-              dataAccept.map(item => 
+              dataAccept.map((item, index) => 
                 <UserItem
-                  element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole}/>
+                  element={item} dashboard={this} userRole={this.userRole} itemRole={this.itemRole} key={item.id + "_" + item.username}/>
                   ) 
             }
           </div>
