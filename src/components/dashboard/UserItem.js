@@ -47,14 +47,19 @@ class UserItem extends React.Component {
                 name : props.element.username,
                 estate : props.element.estate,
                 phone: props.element.phone,
+                email: props.element.email,
 
                 dashboard : props.dashboard,
                 element : props.element
             };
+
+        this.state.showChiTiet = false;
     }
 
     xemChitiet() {
-
+        this.setState({
+            showChiTiet: !this.state.showChiTiet
+        });
     }
 
     guiAcceptRejectToUserRegis(newState1, accept, url) {
@@ -228,136 +233,168 @@ class UserItem extends React.Component {
     }
 
     render() {
+        var thongTinChiTiet;
+        thongTinChiTiet = <div class="row">
+            <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>               
+                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
+            </div>
+                        
+            <div class = "col col-md-2" style={{alignItems: "right"}}></div>
+        </div>;
+
+        if (this.itemRole != roleType.USER) 
+            thongTinChiTiet = null;
+
         console.log("UserItem : ", this.state.name, " state ", this.state.estate);
         if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.USER) {
             if (this.state.estate === "STATE_UNAUTHENTICATED")
                 return (
-                    <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
-                        <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                        <div class="row">
+                            <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
+                            </div>
+                            
+                            <div class = "col col-md-2" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-success btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_AUTHENTICATED", true, Constant.accept_reject_user_regis)}>Thêm</button>
+                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            </div>
                         </div>
-                        
-                        <div class = "col col-md-2" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-success btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_AUTHENTICATED", true, Constant.accept_reject_user_regis)}>Thêm</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
-                        </div>
+                        <div class="row"></div>
                     </div>
                 )
             else 
                 return (
-                    <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
-                        <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
-                        </div>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                        <div class="row">
+                            <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
+                            </div>
 
-                        <div class = "col col-md-2" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_UNAUTHENTICATED", false, Constant.accept_reject_user_regis )}>Xóa</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            <div class = "col col-md-2" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_UNAUTHENTICATED", false, Constant.accept_reject_user_regis )}>Xóa</button>
+                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            </div>
                         </div>
+                        
+                        <div class="row"></div>
                     </div>
                 );
 
         } else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.AUTHORITY) {
             if (this.state.estate === "STATE_UNAUTHENTICATED" || this.state.estate === null)
                 return (
-                    <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "7px", height: "110px"}}>
-                        <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                        </div>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                        <div class="row">
+                            <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
+                            </div>
 
-                        <div class = "col col-md-3" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.auth_location_regis)}>Thêm</button>
-                            <button class = "row btn btn-warning btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.auth_location_regis)}>Xóa</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px", marginTop: '2px'}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            <div class = "col col-md-3" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.auth_location_regis)}>Thêm</button>
+                                <button class = "row btn btn-warning btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.auth_location_regis)}>Xóa</button>
+                            </div>
                         </div>
                     </div>
                 )
             else 
                 return (
-                    <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
-                        <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
-                        </div>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                        <div class="row">
+                            <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
+                            </div>
 
-                        <div class = "col col-md-2" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.auth_location_regis)}>Xóa</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            <div class = "col col-md-2" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.auth_location_regis)}>Xóa</button>
+                            </div>
                         </div>
                     </div>
                 );
         } else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.RESCUER) {
             if (this.state.estate === "STATE_UNAUTHENTICATED" || this.state.estate === null)
                 return (
-                    <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "7px", height: "110px"}}>
-                        <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                        </div>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                        <div class="row">
+                            <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
+                            </div>
 
-                        <div class = "col col-md-3" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.resc_location_regis)}>Thêm</button>
-                            <button class = "row btn btn-warning btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.resc_location_regis)}>Xóa</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px", marginTop: '2px'}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            <div class = "col col-md-3" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.resc_location_regis)}>Thêm</button>
+                                <button class = "row btn btn-warning btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.resc_location_regis)}>Xóa</button>
+                            </div>
                         </div>
                     </div>
                 )
             else 
                 return (
-                    <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
-                        <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
-                        </div>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                        <div class="row">   
+                             <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
 
-                        <div class = "col col-md-2" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.resc_location_regis)}>Xóa</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            </div>
+
+                            <div class = "col col-md-2" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.resc_location_regis)}>Xóa</button>
+                            </div>
                         </div>
                     </div>
                 );
         } else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.VOLUNTEER) {
             if (this.state.estate === "STATE_UNAUTHENTICATED" || this.state.estate === null)
                 return (
-                    <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "7px", height: "110px"}}>
-                        <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                        </div>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                        <div class="row">   
+                            <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
+                            </div>
 
-                        <div class = "col col-md-3" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.volu_location_regis)}>Thêm</button>
-                            <button class = "row btn btn-warning btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.volu_location_regis)}>Xóa</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px", marginTop: '2px'}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            <div class = "col col-md-3" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(true, Constant.volu_location_regis)}>Thêm</button>
+                                <button class = "row btn btn-warning btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.volu_location_regis)}>Xóa</button>
+                            </div>
                         </div>
                     </div>
                 )
             else 
                 return (
-                    <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
-                        <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
-                        </div>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                        <div class="row">   
+                            <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
+                            </div>
 
-                        <div class = "col col-md-2" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.volu_location_regis)}>Xóa</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            <div class = "col col-md-2" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-danger btn-sm" type="button" style={{marginBottom: "5px", marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToAuthRegis(false, Constant.volu_location_regis)}>Xóa</button>
+                            </div>
                         </div>
                     </div>
                 );
         } else if (this.userRole === roleType.VOLUNTEER && this.itemRole === roleType.USER) {
             if (this.state.estate === "STATE_DANGER" || this.state.setState === null)
-                return <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "7px", height: "110px"}}>
-                            <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                return (
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px"}}>
+                        <div class="row">   
+                            <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px", height: "110px"}}>
                                 <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
@@ -368,20 +405,26 @@ class UserItem extends React.Component {
                                 <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "2px", fontSize: "13px", width:"90px"}}onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", false, Constant.emergency_location_regis)}>An toàn</button>
                                 <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px", marginTop: '2px'}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
                             </div>
-                        </div>;
-                
-            else
-                return <div class = "row" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
-                        <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                            <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                            <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
                         </div>
-                        <div class = "col col-md-2" style={{alignItems: "right"}}>
-                            <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", false, Constant.emergency_location_regis)}>An toàn</button>
-                            <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                        {this.state.showChiTiet ? thongTinChiTiet : null}
+                    </div>);
+            else
+                return (
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px"}}>
+                        <div class="row">   
+                            <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px", height: "110px"}}>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
+                                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
                             </div>
-                    </div>;
+                            <div class = "col col-md-2" style={{alignItems: "right"}}>
+                                <button class = "row btn btn-success btn-sm" type="button" style={{marginTop: "5px", fontSize: "13px", width:"65px"}}onClick={()=>this.guiAcceptRejectToUserRegisVolunteer("STATE_SAFE", false, Constant.emergency_location_regis)}>An toàn</button>
+                                <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
+                            </div>
+                        </div>
+                        {this.state.showChiTiet ? 
+                            thongTinChiTiet : null}
+                    </div>);
         }
     }
 }

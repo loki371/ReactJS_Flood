@@ -172,7 +172,7 @@ class UserInfomation extends React.Component {
         </div>
       </div> 
       
-      : <div/>
+      : <div style={{marginLeft: '20px', margin:"20px", marginTop: "5px", height: "500px", textAlign: "center"}}/>
       
     );
   }

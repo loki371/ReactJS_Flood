@@ -43,12 +43,14 @@ class Dashboard extends React.Component {
       console.log("data received: ", res.data.data);
       res.data.data.map(
         item => {
-          if (item.estate === "STATE_UNAUTHENTICATED" || item.estate === null) {
-            dataRequest.push(item);
-            console.log("loading : item name = ", item.name, " -> request");
-          } else if (item.estate === "STATE_AUTHENTICATED") {
-            dataAccept.push(item);
-            console.log("loading : item name = ", item.name, " -> accepted");
+          if (item.username != usernameData.data) {
+            if (item.estate === "STATE_UNAUTHENTICATED" || item.estate === null) {
+              dataRequest.push(item);
+              console.log("loading : item name = ", item.name, " -> request");
+            } else if (item.estate === "STATE_AUTHENTICATED") {
+              dataAccept.push(item);
+              console.log("loading : item name = ", item.name, " -> accepted");
+            }
           }
         }
       )

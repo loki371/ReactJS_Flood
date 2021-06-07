@@ -135,7 +135,7 @@ class App extends React.Component {
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
-                <div class = "col" id="mainboard" style={{width:'100%', height: "500px"}} >
+                <div class = "col" id="mainboard" style={{width:'100%', height: "700px"}} >
                   {this.state.showRequestAccept?<Dashboard/>:null}
                   {this.state.showNoiLamViec?<Ward/>:null}
                   {this.state.showFloodState?<FloodState/>:null}
@@ -189,7 +189,7 @@ class App extends React.Component {
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
-                <div class = "col" id="mainboard" style={{width:'100%', height: "500px"}}>
+                <div class = "col" id="mainboard" style={{width:'100%'}}>
                   {this.state.showRequestAccept?<Dashboard/>:null}
                   {this.state.showNoiLamViec?<Ward/>:null}
                   {this.state.showUserInfo?<UserInformation/>:null}

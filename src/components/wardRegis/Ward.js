@@ -170,6 +170,12 @@ class Ward extends React.Component {
       return;
     }
 
+    console.log("wardData = " + wardData.data.id)
+    if (this.state.wardId == wardData.data.id) {
+      alert("Bạn đã làm việc tại địa phương này rồi!!!");
+      return;
+    }
+
     var baseUrl = Constant.regis_cors_cors;
     baseUrl = baseUrl + this.state.wardId + "?eRole=" + roleData.data[0];
     console.log("url = " + baseUrl);
@@ -248,15 +254,15 @@ class Ward extends React.Component {
 
         : 
 
-        <div style={{width: '100%', textAlign: "center", height: "70px", marginTop: "20px", borderStyle:"groove", borderRadius: "5px"}} class="row">
+        <div style={{width: '100%', textAlign: "center", height: "80px", marginTop: "20px", borderStyle:"groove", borderRadius: "5px"}} class="row">
           <div class="row" style={{padding: "0px", margin: "0px"}}>
-            <h6 style={{width: "20%", marginTop: "10px", paddingTop: "10px"}} class="col-4">Bản đăng ký:</h6>
+            <h6 style={{width: "20%", marginTop: "10px", paddingTop: "10px", width: "100px"}} class="col">Bản đăng ký:</h6>
             <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.tempProvince}</div>
             <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.tempDistrict}</div>
             <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.tempWard}</div>
-            <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center"}}>{this.state.trangthai}</div>
+            <div class="col list-group" style={{marginTop: "17px", height: "30px", marginLeft: "20px", textAlign: "center", fontWeight: "bold"}}>{this.state.trangthai}</div>
 
-            <button type="button" class="btn col col-sm-1 btn-danger" style={{width:"150px", height: "50px", marginRight: "20px", marginLeft: "20px", marginTop: "8px"}} 
+            <button type="button" class="btn col col-sm-1 btn-danger" style={{width:"120px", height: "50px", marginRight: "20px", marginLeft: "20px", marginTop: "8px"}} 
               onClick={() => this.sendDeleteRegister()}>Xóa đăng ký</button>
           </div>
         </div>
