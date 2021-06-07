@@ -5,6 +5,8 @@ import UserData from "../app/UserData";
 import RoleType from "../app/RoleType";
 import SimpleMap from "./SimpleMap"
 
+import NoAvatar from "../../no_picture.png";
+
 
 const userData = UserData();
 var tokenData = userData.tokenData;
@@ -28,7 +30,11 @@ class UserItem extends React.Component {
                 latitude : props.element.latitude,
 
                 dashboard : props.dashboard,
-                element : props.element
+                element : props.element,
+
+                showChiTiet: false,
+                source: null,
+                avatar: 0 // chua show
             };
         else if (this.userRole === roleType.VOLUNTEER && this.itemRole === roleType.USER)
             this.state = {
@@ -41,7 +47,11 @@ class UserItem extends React.Component {
                 latitude : props.element.latitude,
 
                 dashboard : props.dashboard,
-                element : props.element
+                element : props.element,
+
+                showChiTiet: false,
+                source: null,
+                avatar: 0 // chua show
             };
         else
             this.state = {
@@ -52,17 +62,41 @@ class UserItem extends React.Component {
                 email: props.element.email,
 
                 dashboard : props.dashboard,
-                element : props.element
-            };
+                element : props.element,
 
-        this.state.showChiTiet = false;
-        this.state.source = null;
+                showChiTiet: false,
+                source: null,
+                avatar: 0   // chua show
+            };
     }
 
     xemChitiet() {
-        console.log("log xem chi tiet");
-        this.setState({
-            showChiTiet: !this.state.showChiTiet
+        if (this.state.showChiTiet == true) {
+            this.setState({
+                showChiTiet: false
+            });
+            return;    
+        }
+        this.setState({avatar: 0});
+
+        var url = Constant.image_service;
+        Axios.get(url, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': tokenData.data
+            },
+        }).then((res) => {
+            
+            this.setState({
+                showChiTiet: !this.state.showChiTiet,
+                avatar: 2
+            });
+        }).catch(() => {
+            
+            this.setState({
+                showChiTiet: !this.state.showChiTiet,
+                avatar: 1
+            });
         });
     }
 
@@ -242,7 +276,13 @@ class UserItem extends React.Component {
         <div class="row">
             <div class = "col col-md-5" style={{paddingTop: "3px", alignItems: "center"}}>
                 <p class = "row" style = {{paddingLeft: '58px', paddingBottom: "2px", margin: '0px', fontWeight: "bold"}}>Chân dung</p>
-                <img class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', objectFit: "cover", borderRadius: "10px"}} width="200" height="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"></img>
+                {
+                    this.state.avatar == 1 ? 
+                        <img class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', objectFit: "cover", borderRadius: "10px"}} width="200" height="300" src = {NoAvatar}></img> 
+                        :  ( this.state.avatar == 0 ? 
+                            <div/>
+                            : <div/> )
+                }
             </div>
 
             <div class = "col col-md-5" style={{paddingTop: "3px", paddingLeft: "10px", alignItems: "right"}}>               
