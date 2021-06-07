@@ -1,6 +1,6 @@
 const HEAD_ADRESS = "http://";
 
-const FINAL_IP = "34.126.148.60";
+const FINAL_IP = "34.126.187.47";
 const FLOOD_SERVICE_ADDRESS = HEAD_ADRESS + FINAL_IP + ":8080/v1/api";
 const LOGIN_SERVICE_ADDRESS = HEAD_ADRESS + FINAL_IP + ":8080/v1/api/auth";
 const SEARCH_SERVICE_ADDRESS = HEAD_ADRESS + FINAL_IP + ":8082";
@@ -34,6 +34,10 @@ const address = {
     floodNotification: FLOOD_SERVICE_ADDRESS + "/floodNotifications",
 
     userInformation: FLOOD_SERVICE_ADDRESS + "/accounts",
+
+    image_service: SEARCH_SERVICE_ADDRESS + "/pythonService/registrations/images",
+
+    python_service: SEARCH_SERVICE_ADDRESS,
 
     isTest: false
 };

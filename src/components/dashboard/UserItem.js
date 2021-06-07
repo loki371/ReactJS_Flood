@@ -79,16 +79,17 @@ class UserItem extends React.Component {
         }
         this.setState({avatar: 0});
 
-        var url = Constant.image_service;
+        var url = Constant.image_service + "/" + this.state.id;
         Axios.get(url, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': tokenData.data
             },
         }).then((res) => {
-            
+            console.log("result = ", res.data);
             this.setState({
                 showChiTiet: !this.state.showChiTiet,
+                source: Constant.python_service + "/" + res.data[0].url,
                 avatar: 2
             });
         }).catch(() => {
@@ -281,7 +282,7 @@ class UserItem extends React.Component {
                         <img class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', objectFit: "cover", borderRadius: "10px"}} width="200" height="300" src = {NoAvatar}></img> 
                         :  ( this.state.avatar == 0 ? 
                             <div/>
-                            : <div/> )
+                            : <img class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', objectFit: "cover", borderRadius: "10px"}} width="200" height="300" src = {this.state.source}></img> )
                 }
             </div>
 
