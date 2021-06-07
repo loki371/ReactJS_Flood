@@ -3,6 +3,8 @@ import Constant from "../../constant";
 import Axios from "axios";
 import UserData from "../app/UserData";
 import RoleType from "../app/RoleType";
+import SimpleMap from "./SimpleMap"
+
 
 const userData = UserData();
 var tokenData = userData.tokenData;
@@ -245,7 +247,7 @@ class UserItem extends React.Component {
 
             <div class = "col col-md-5" style={{paddingTop: "3px", paddingLeft: "10px", alignItems: "right"}}>               
                 <p class = "row" style = {{paddingLeft: '110px', paddingBottom: "2px", margin: '0px', fontWeight: "bold"}}>Vị trí</p>
-                <img class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', objectFit: "cover", borderRadius: "10px"}} width="260" height="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"></img>
+                <SimpleMap longitude={this.state.longitude} latitude={this.state.latitude} class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', borderRadius: "10px"}} height="250"/>
             </div>
                         
         </div>;
