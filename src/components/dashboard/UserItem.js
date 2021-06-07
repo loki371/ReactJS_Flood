@@ -54,9 +54,11 @@ class UserItem extends React.Component {
             };
 
         this.state.showChiTiet = false;
+        this.state.source = null;
     }
 
     xemChitiet() {
+        console.log("log xem chi tiet");
         this.setState({
             showChiTiet: !this.state.showChiTiet
         });
@@ -234,23 +236,25 @@ class UserItem extends React.Component {
 
     render() {
         var thongTinChiTiet;
-        thongTinChiTiet = <div class="row">
-            <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>               
-                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
-                <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
+        thongTinChiTiet = 
+        <div class="row">
+            <div class = "col col-md-5" style={{paddingTop: "3px", alignItems: "center"}}>
+                <p class = "row" style = {{paddingLeft: '58px', paddingBottom: "2px", margin: '0px', fontWeight: "bold"}}>Chân dung</p>
+                <img class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', objectFit: "cover", borderRadius: "10px"}} width="200" height="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"></img>
+            </div>
+
+            <div class = "col col-md-5" style={{paddingTop: "3px", paddingLeft: "10px", alignItems: "right"}}>               
+                <p class = "row" style = {{paddingLeft: '110px', paddingBottom: "2px", margin: '0px', fontWeight: "bold"}}>Vị trí</p>
+                <img class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', objectFit: "cover", borderRadius: "10px"}} width="260" height="300" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"></img>
             </div>
                         
-            <div class = "col col-md-2" style={{alignItems: "right"}}></div>
         </div>;
-
-        if (this.itemRole != roleType.USER) 
-            thongTinChiTiet = null;
 
         console.log("UserItem : ", this.state.name, " state ", this.state.estate);
         if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.USER) {
             if (this.state.estate === "STATE_UNAUTHENTICATED")
                 return (
-                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "auto"}}>
                         <div class="row">
                             <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
                                 <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
@@ -263,12 +267,12 @@ class UserItem extends React.Component {
                                 <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
                             </div>
                         </div>
-                        <div class="row"></div>
+                        {this.state.showChiTiet ? thongTinChiTiet : null}
                     </div>
                 )
             else 
                 return (
-                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "auto"}}>
                         <div class="row">
                             <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
                                 <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
@@ -281,8 +285,7 @@ class UserItem extends React.Component {
                                 <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
                             </div>
                         </div>
-                        
-                        <div class="row"></div>
+                        {this.state.showChiTiet ? thongTinChiTiet : null}
                     </div>
                 );
 
@@ -392,7 +395,7 @@ class UserItem extends React.Component {
         } else if (this.userRole === roleType.VOLUNTEER && this.itemRole === roleType.USER) {
             if (this.state.estate === "STATE_DANGER" || this.state.setState === null)
                 return (
-                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px"}}>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "auto"}}>
                         <div class="row">   
                             <div class = "col col-md-9" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px", height: "110px"}}>
                                 <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
@@ -410,7 +413,7 @@ class UserItem extends React.Component {
                     </div>);
             else
                 return (
-                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px"}}>
+                    <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "auto"}}>
                         <div class="row">   
                             <div class = "col col-md-10" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px", height: "110px"}}>
                                 <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
@@ -422,8 +425,7 @@ class UserItem extends React.Component {
                                 <button class = "row btn btn-primary btn-sm" type="button" style={{fontSize: "11px", width:"65px"}} onClick={()=>this.xemChitiet()}>Chi tiết</button>
                             </div>
                         </div>
-                        {this.state.showChiTiet ? 
-                            thongTinChiTiet : null}
+                        {this.state.showChiTiet ? thongTinChiTiet : null}
                     </div>);
         }
     }
