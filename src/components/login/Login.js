@@ -47,12 +47,17 @@ export default function Login() {
     console.log(data);
 
     if (data.tokenType === "Bearer") {
+      
+      for (var role of data.roles) {
+        if (role === "ROLE_USER") {
+          alert("Chúng tôi không phục vụ bạn tại đây");
+          return;
+        }
+      }
 
       tokenData.set(data.accessToken);
       usernameData.set(data.username);
       roleData.set(data.roles);
-      
-      console.log(data.roles);
       
       for (var role of data.roles) {
         if (role === "ROLE_AUTHORITY") {

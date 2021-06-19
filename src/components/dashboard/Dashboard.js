@@ -17,7 +17,8 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       dataRequest : [],
-      dataAccept : []
+      dataAccept : [],
+      title: ""
     }
     this.userRole = null;
     this.itemRole = null;
@@ -121,6 +122,9 @@ class Dashboard extends React.Component {
     this.userRole = RoleType.AUTHORITY;
     this.itemRole = RoleType.USER;
     this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.user_registration);
+    this.setState({
+      title : " \\ Danh sách Nơi cần cứu"
+    })
   }
 
   loadUserRegistrationVolunteer(){
@@ -137,6 +141,9 @@ class Dashboard extends React.Component {
 
     console.log("loadUserRegistration Volunteer");
     this.loadRegistrationForVolunteer(dataAccept, dataRequest, Constant.user_registration);
+    this.setState({
+      title : " \\ Danh sách Nơi cần cứu"
+    })
   }
 
   loadAuthorityRegistrationAuthority(){
@@ -152,6 +159,9 @@ class Dashboard extends React.Component {
 
     console.log("loadAuthorityRegistration Authority");
     this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.auth_location_regis);
+    this.setState({
+      title : " \\ Đăng ký Chính quyền"
+    })
   }
 
   loadVolunteerRegistrationAuthority() {
@@ -167,6 +177,9 @@ class Dashboard extends React.Component {
 
     console.log("loadVolunteerRegistration Authority");
     this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.volu_location_regis);
+    this.setState({
+      title : " \\ Đăng ký Tình nguyện viên"
+    })
   }
 
   loadRescuerRegistrationAuthority() {
@@ -182,21 +195,24 @@ class Dashboard extends React.Component {
 
     console.log("loadRescuerRegistration Authority");
     this.loadRegistrationForAuthority(dataAccept, dataRequest, Constant.resc_location_regis);
+    this.setState({
+      title : " \\ Đăng ký Đội cứu nạn"
+    })
   }
 
   renderclonegido(role) {
     switch(role) {
       case "ROLE_AUTHORITY":
         return <div style={{marginBottom:"2px"}} >
-          <button type="button" class="btn btn-outline-primary" style={{marginRight:"2px"}} onClick={()=>this.loadUserRegistrationAuthority()}>User Registration</button>
-          <button type="button" class="btn btn-outline-secondary" style={{marginRight:"2px"}} onClick={()=>this.loadAuthorityRegistrationAuthority()}>Authority Registration</button>
-          <button type="button" class="btn btn-outline-warning" style={{marginRight:"2px"}} onClick={()=>this.loadVolunteerRegistrationAuthority()}>Volunteer Registration</button>
-          <button type="button" class="btn btn-outline-info" style={{marginRight:"2px"}} onClick={()=>this.loadRescuerRegistrationAuthority()}>Rescuer Registration</button>
+          <button type="button" class="btn btn-outline-primary" style={{marginRight:"2px", fontWeight:"bold"}} onClick={()=>this.loadUserRegistrationAuthority()}>Nơi cần cứu</button>
+          <button type="button" class="btn btn-outline-secondary" style={{marginRight:"2px", fontWeight:"bold" }} onClick={()=>this.loadAuthorityRegistrationAuthority()}>Chính quyền</button>
+          <button type="button" class="btn btn-outline-warning" style={{marginRight:"2px", fontWeight:"bold"}} onClick={()=>this.loadVolunteerRegistrationAuthority()}>Tình nguyện viên</button>
+          <button type="button" class="btn btn-outline-info" style={{marginRight:"2px", fontWeight:"bold"}} onClick={()=>this.loadRescuerRegistrationAuthority()}>Đội Cứu nạn</button>
         </div>;
 
       case "ROLE_VOLUNTEER":
         return <div>
-          <button type="button" class="btn btn-outline-primary" style={{marginRight:"2px"}} onClick={()=>this.loadUserRegistrationVolunteer()}>User Registration</button>
+          <button type="button" class="btn btn-outline-primary" style={{marginRight:"2px", fontWeight:"bold"}} onClick={()=>this.loadUserRegistrationVolunteer()}>Nơi cần cứu</button>
         </div>;
 
       default:
@@ -211,6 +227,7 @@ class Dashboard extends React.Component {
 
     const element = 
     <div>      
+      <h5 style={{width: "100%", textAlign: "center", fontWeight: "bold"}}> Xét duyệt danh sách <span style={{fontWeight:"normal"}}>{this.state.title}</span></h5>
       <div id="buttons">
         {roleData.data.map(role => this.renderclonegido(role))}
       </div>

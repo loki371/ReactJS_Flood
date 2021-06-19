@@ -106,7 +106,7 @@ class App extends React.Component {
 
               <div class="row" style={{margin: "0px", paddingTop: "5px", paddingBottom: "5px", paddingLeft: "0px", paddingRight: "0px", width:'100%'}}>
 
-                <div class = "col-3 btn-group-vertical" style={{height:'200px'}}>
+                <div class = "col-2 btn-group-vertical" style={{height:'200px', marginTop: "30px"}}>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xét duyệt danh sách</button>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Tình trạng lũ lụt</button>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadNoiLamViec()}>Đăng ký địa phương</button>
@@ -158,7 +158,7 @@ class App extends React.Component {
 
               <div class="row" style={{margin: "0px", paddingTop: "5px", paddingBottom: "5px", paddingLeft: "0px", paddingRight: "0px"}}>
 
-                <div class = "col-3 btn-group-vertical" style={{height:'200px'}}>
+                <div class = "col-2 btn-group-vertical" style={{height:'200px', marginTop: "30px"}}>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xét duyệt danh sách</button>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadNoiLamViec()}>Đăng ký địa phương</button>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
