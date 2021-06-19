@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import UserData from "../app/UserData";
 import Constant from "../../constant";
+import Axios from "axios";
 
 async function loginUser(credentials) {
   return fetch(Constant.login_server, {
@@ -17,7 +18,7 @@ async function loginUser(credentials) {
  }
 
 export default function Login() {
-  const { tokenData, usernameData, roleData } = UserData();
+  const { tokenData, usernameData, roleData, wardData } = UserData();
 
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
@@ -48,16 +49,33 @@ export default function Login() {
 
     if (data.tokenType === "Bearer") {
       
+      var urlGetWard;
       for (var role of data.roles) {
         if (role === "ROLE_USER") {
           alert("Chúng tôi không phục vụ bạn tại đây");
           return;
+        }
+        if (role === "ROLE_VOLUNTEER") {
+          urlGetWard = Constant.get_ward_volunteer + "/" + data.username;
+          break;
+        }
+        if (role === "ROLE_AUTHORITY") {
+          urlGetWard = Constant.get_ward_authority + "/" + data.username;
+          break;
         }
       }
 
       tokenData.set(data.accessToken);
       usernameData.set(data.username);
       roleData.set(data.roles);
+
+      Axios.defaults.headers.common['Authorization'] = tokenData.data;
+      Axios.get(
+        urlGetWard
+      ).then((res) => {
+        console.log("result getWard: ", res);
+        wardData.set(res.data.ward);
+      });
       
       for (var role of data.roles) {
         if (role === "ROLE_AUTHORITY") {
