@@ -169,11 +169,13 @@ class Ward extends React.Component {
       alert("Bạn phải chọn đầy đủ thông tin địa phương");
       return;
     }
-
-    console.log("wardData = " + wardData.data.id)
-    if (this.state.wardId == wardData.data.id) {
-      alert("Bạn đã làm việc tại địa phương này rồi!!!");
-      return;
+    
+    if (wardData.data != null) {
+      console.log("wardData = " + wardData.data.id)
+      if (this.state.wardId == wardData.data.id) {
+        alert("Bạn đã làm việc tại địa phương này rồi!!!");
+        return;
+      }
     }
 
     var baseUrl = Constant.regis_cors_cors;

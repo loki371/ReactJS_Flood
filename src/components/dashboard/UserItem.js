@@ -195,14 +195,22 @@ class UserItem extends React.Component {
                 }
             } else {
                 index = indexOf(arrAccept, this.state.id);
-                console.log("index delete ", index);
                 if (index !== -1) {
+
+                    console.log("index reject ", index);
                     arrAccept.splice(index, 1)
                     if (newState1 === "STATE_DANGER") {
                         this.state.element.estate = "STATE_DANGER";
                         arrRequest.push(this.state.element);
                     }
                     console.log("thay doi state STATE_DANGER");
+
+                } else {
+                    index = indexOf(arrRequest, this.state.id);
+                    console.log("index delete ", index);
+                    if (index !== -1) {
+                        arrRequest.splice(index, 1)
+                    }
                 }
             }
 
@@ -255,9 +263,12 @@ class UserItem extends React.Component {
                 console.log("index reject ", index);
                 if (index !== -1) {
                     arrAccept.splice(index, 1);
-                    //this.state.element.state = "STATE_UNAUTHENTICATED";
-                    //arrRequest.push(this.state.element);
-                    //console.log("thay doi state Delete");
+                } else {
+                    index = indexOfUsername(arrRequest, this.state.name);
+                    console.log("index delete ", index);
+                    if (index !== -1) {
+                        arrRequest.splice(index, 1)
+                    }
                 }
             }
 

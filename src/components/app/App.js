@@ -116,7 +116,7 @@ class App extends React.Component {
                       <a class="nav-link" href="#">Vai trò: {this.state.role}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">{this.state.ward != null ? this.state.ward.name : ""}</a>
+                      <a class="nav-link" href="#">Nơi làm việc: {this.state.ward != null ? this.state.ward.name : "Chưa có"}</a>
                     </li>
                   </ul>
 
@@ -171,7 +171,7 @@ class App extends React.Component {
                       <a class="nav-link" href="#">Vai trò: {this.state.role}</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="#">{this.state.ward != null ? this.state.ward.name : ""}</a>
+                      <a class="nav-link" href="#">Nơi làm việc: {this.state.ward != null ? this.state.ward.name : "Chưa có"}</a>
                     </li>
                   </ul>
 
@@ -183,13 +183,13 @@ class App extends React.Component {
 
               <div class="row" style={{margin: "0px", paddingTop: "5px", paddingBottom: "5px", paddingLeft: "0px", paddingRight: "0px"}}>
 
-                <div class = "col-2 btn-group-vertical" style={{height:'200px', marginTop: "30px"}}>
+                <div class = "col-2 btn-group-vertical" style={{height:'150px', marginTop: "30px"}}>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadRequestAccept()}>Xét duyệt danh sách</button>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadNoiLamViec()}>Đăng ký địa phương</button>
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
-                <div class = "col" id="mainboard" style={{width:'100%'}}>
+                <div class = "col" id="mainboard" style={{width:'100%', height: "700px"}}>
                   {this.state.showRequestAccept?<Dashboard/>:null}
                   {this.state.showNoiLamViec?<Ward/>:null}
                   {this.state.showUserInfo?<UserInformation/>:null}
