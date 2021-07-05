@@ -28,6 +28,7 @@ const address = {
     accept_reject_user_regis : FLOOD_SERVICE_ADDRESS + "/registrations/authorities",
     get_ward_authority : FLOOD_SERVICE_ADDRESS + "/authorities",
     get_ward_volunteer : FLOOD_SERVICE_ADDRESS + "/volunteers",
+    update_regis : FLOOD_SERVICE_ADDRESS + "/registrations/updateRegistrations",
 
     regis_cors_cors : FLOOD_SERVICE_ADDRESS + "/locationRegistrations/wards/",
 

@@ -28,6 +28,7 @@ class UserItem extends React.Component {
                 eState : props.element.eState,
                 longitude : props.element.longitude,
                 latitude : props.element.latitude,
+                order : props.element.order,
 
                 dashboard : props.dashboard,
                 element : props.element,
@@ -70,9 +71,16 @@ class UserItem extends React.Component {
                 avatar: 0   // chua show
             };
         this.state.textBtxChiTiet = "Chi tiết";
+        this.state.soNguoiTemp = this.state.numPerson;
+        this.state.orderTemp = this.state.order;
     }
 
     xemChitiet() {
+        this.setState({
+            orderTemp: this.state.order,
+            soNguoiTemp: this.state.numPerson
+        });
+
         if (this.state.showChiTiet == true) {
             this.setState({
                 showChiTiet: false,
@@ -287,9 +295,31 @@ class UserItem extends React.Component {
         });
     }
 
+    guiCapNhanRegistration() {
+        this.setState({
+            numPerson : this.state.soNguoiTemp,
+            order : this.state.orderTemp
+        })
+        console.log("Gui nek: numPerson " + this.state.soNguoiTemp + " order " + this.state.orderTemp);
+        Axios.defaults.headers.common['Authorization'] = tokenData.data;
+        Axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+        Axios.put(
+                Constant.update_regis
+                + "/" + this.state.id 
+                + "?numPeople=" + this.state.soNguoiTemp
+                + "&order=" + this.state.orderTemp
+        );
+    }
+
     changeTinhTrangKhanCap(e) {
-    
-      }
+        this.setState({orderTemp : e.target.value});
+        console.log("orderTemp " + this.state.orderTemp);
+    }
+
+    handleChangeNumPerson(event) {
+        this.setState({soNguoiTemp :  event.target.value});
+        console.log("soNguoiTemp " + this.state.soNguoiTemp);
+    }
 
     render() {
         var thongTinChiTiet = null, chinhSuaThongTin = null;
@@ -319,21 +349,26 @@ class UserItem extends React.Component {
                 <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
                     <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Chỉnh sửa thông tin</h6>
                     <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: 
-                        <input type="number" style={{width: "100px", marginLeft: "30px"}}></input>
+                        <input type="number" style={{width: "100px", marginLeft: "30px"}} 
+                        value={this.state.soNguoiTemp} 
+                        onChange={event => this.handleChangeNumPerson(event)}></input>
                     </p>
                     <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', paddingTop: "5px"}}>Tình trạng: 
-                        <select class="col list-group" style={{height: "30px", marginLeft: "20px", textAlign: "left", width: "150px"}} onChange={e => this.changeTinhTrangKhanCap(e)}>
+                        <select class="col list-group" 
+                            style={{height: "30px", marginLeft: "20px", textAlign: "left", width: "150px"}} 
+                            value = {this.state.orderTemp}
+                            onChange={e => this.changeTinhTrangKhanCap(e)}>
                             <option value="0">Cực kỳ khẩn cấp: Cấp cứu người bệnh, phụ nữ sắp sinh</option>
                             <option value="1">Rất khẩn cấp: Vị trí nhiều trẻ nhỏ</option>
                             <option value="2">Khẩn cấp: Vị trí nhiều người già, phụ nữ</option>
-                            <option value="3" selected>Không khẩn cấp</option>
-                        </select>
+                            <option value="3">Không khẩn cấp</option>
+                        </select>                    
                     </p>
                 </div>
                 <div class = "col col-md-auto"></div>
                 <div class = "col col-md-3" style={{alignItems: "right"}}>
                     <div class = "row">
-                        <button class = "btn btn-info btn-sm" type="button" style={{marginBottom: "5px", marginTop: "15px", fontSize: "13px", width:"80px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_AUTHENTICATED", true, Constant.accept_reject_user_regis)}>Cập nhật</button>
+                        <button class = "btn btn-info btn-sm" type="button" style={{marginBottom: "5px", marginTop: "15px", fontSize: "13px", width:"80px"}}onClick={()=>this.guiCapNhanRegistration()}>Cập nhật</button>
                     </div>
                 </div>
             </div>;
