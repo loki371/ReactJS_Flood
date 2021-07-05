@@ -25,7 +25,7 @@ class UserItem extends React.Component {
                 name : props.element.name,
                 phone : props.element.phone,
                 numPerson : props.element.numPerson,
-                estate : props.element.eState,
+                eState : props.element.eState,
                 longitude : props.element.longitude,
                 latitude : props.element.latitude,
 
@@ -42,7 +42,7 @@ class UserItem extends React.Component {
                 name : props.element.name,
                 phone : props.element.phone,
                 numPerson : props.element.numPerson,
-                estate : props.element.eState,
+                eState : props.element.eState,
                 longitude : props.element.longitude,
                 latitude : props.element.latitude,
                 order : props.element.order,
@@ -58,7 +58,7 @@ class UserItem extends React.Component {
             this.state = {
                 id : props.element.id,
                 name : props.element.username,
-                estate : props.element.eState,
+                eState : props.element.eState,
                 phone: props.element.phone,
                 email: props.element.email,
 
@@ -107,7 +107,7 @@ class UserItem extends React.Component {
     }
 
     guiAcceptRejectToUserRegis(newState1, accept, url) {
-        //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.eState + " newState " + newState1);
+        console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.eState + " newState " + newState1);
         //console.log("token ", tokenData.data);
         Axios.defaults.headers.common['Authorization'] = tokenData.data;
         Axios.put(
