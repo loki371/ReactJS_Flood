@@ -25,7 +25,7 @@ class UserItem extends React.Component {
                 name : props.element.name,
                 phone : props.element.phone,
                 numPerson : props.element.numPerson,
-                estate : props.element.estate,
+                estate : props.element.eState,
                 longitude : props.element.longitude,
                 latitude : props.element.latitude,
 
@@ -42,9 +42,10 @@ class UserItem extends React.Component {
                 name : props.element.name,
                 phone : props.element.phone,
                 numPerson : props.element.numPerson,
-                estate : props.element.estate,
+                estate : props.element.eState,
                 longitude : props.element.longitude,
                 latitude : props.element.latitude,
+                order : props.element.order,
 
                 dashboard : props.dashboard,
                 element : props.element,
@@ -57,7 +58,7 @@ class UserItem extends React.Component {
             this.state = {
                 id : props.element.id,
                 name : props.element.username,
-                estate : props.element.estate,
+                estate : props.element.eState,
                 phone: props.element.phone,
                 email: props.element.email,
 
@@ -106,13 +107,13 @@ class UserItem extends React.Component {
     }
 
     guiAcceptRejectToUserRegis(newState1, accept, url) {
-        //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.estate + " newState " + newState1);
+        //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.eState + " newState " + newState1);
         //console.log("token ", tokenData.data);
         Axios.defaults.headers.common['Authorization'] = tokenData.data;
         Axios.put(
                 url
                 + "/" + this.state.id 
-                + "?oldState=" + this.state.estate
+                + "?oldState=" + this.state.eState
                 + "&newState=" + newState1
         ).then((res) => {
     
@@ -131,7 +132,7 @@ class UserItem extends React.Component {
                 console.log("index accept ", index);
                 if (index !== -1) {
                     arrRequest.splice(index, 1);
-                    this.state.element.estate = "STATE_AUTHENTICATED";
+                    this.state.element.eState = "STATE_AUTHENTICATED";
                     arrAccept.push(this.state.element);
                     console.log("thay doi state Accept");
                 }
@@ -140,7 +141,7 @@ class UserItem extends React.Component {
                 console.log("index delete ", index);
                 if (index !== -1) {
                     arrAccept.splice(index, 1);
-                    this.state.element.estate = "STATE_UNAUTHENTICATED";
+                    this.state.element.eState = "STATE_UNAUTHENTICATED";
                     arrRequest.push(this.state.element);
                     console.log("thay doi state Delete");
                 }
@@ -161,14 +162,14 @@ class UserItem extends React.Component {
     }
 
     guiAcceptRejectToUserRegisVolunteer(newState1, accept, url) {
-        //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.estate + " newState " + newState1);
+        //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.eState + " newState " + newState1);
         //console.log("token ", tokenData.data);
         Axios.defaults.headers.common['Authorization'] = tokenData.data;
         Axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
         Axios.put(
                 url
                 + "/" + this.state.id 
-                + "?oldState=" + this.state.estate
+                + "?oldState=" + this.state.eState
                 + "&newState=" + newState1
         ).then((res) => {
     
@@ -188,7 +189,7 @@ class UserItem extends React.Component {
                 if (index !== -1) {
                     arrRequest.splice(index, 1);
                     if (newState1 === "STATE_EMERGENCY") {
-                        this.state.element.estate = "STATE_EMERGENCY";
+                        this.state.element.eState = "STATE_EMERGENCY";
                         arrAccept.push(this.state.element);
                     }
                     console.log("thay doi state STATE_EMERGENCY");
@@ -200,7 +201,7 @@ class UserItem extends React.Component {
                     console.log("index reject ", index);
                     arrAccept.splice(index, 1)
                     if (newState1 === "STATE_DANGER") {
-                        this.state.element.estate = "STATE_DANGER";
+                        this.state.element.eState = "STATE_DANGER";
                         arrRequest.push(this.state.element);
                     }
                     console.log("thay doi state STATE_DANGER");
@@ -229,7 +230,7 @@ class UserItem extends React.Component {
     }
 
     guiAcceptRejectToAuthRegis(accept, url) {
-        //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.estate + " newState " + newState1);
+        //console.log("send acceptReject  id " + this.state.id + " oldState " + this.state.eState + " newState " + newState1);
         //console.log("token ", tokenData.data);
         Axios.defaults.headers.common['Authorization'] = tokenData.data;
         console.log("accept = ", accept);
@@ -254,7 +255,7 @@ class UserItem extends React.Component {
                 console.log("index accept ", index);
                 if (index !== -1) {
                     arrRequest.splice(index, 1);
-                    this.state.element.estate = "STATE_AUTHENTICATED";
+                    this.state.element.eState = "STATE_AUTHENTICATED";
                     arrAccept.push(this.state.element);
                     console.log("thay doi state Accept");
                 }
@@ -286,8 +287,12 @@ class UserItem extends React.Component {
         });
     }
 
+    changeTinhTrangKhanCap(e) {
+    
+      }
+
     render() {
-        var thongTinChiTiet;
+        var thongTinChiTiet = null, chinhSuaThongTin = null;
         thongTinChiTiet = 
         <div class="row">
             <div class = "col col-md-5" style={{paddingTop: "3px", alignItems: "center"}}>
@@ -307,15 +312,40 @@ class UserItem extends React.Component {
             </div>
                         
         </div>;
+        
+        if (this.userRole == roleType.VOLUNTEER)
+            chinhSuaThongTin = 
+            <div class="row" style = {{paddingTop: "3px"}}>
+                <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
+                    <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Chỉnh sửa thông tin</h6>
+                    <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: 
+                        <input type="number" style={{width: "100px", marginLeft: "30px"}}></input>
+                    </p>
+                    <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', paddingTop: "5px"}}>Tình trạng: 
+                        <select class="col list-group" style={{height: "30px", marginLeft: "20px", textAlign: "left", width: "200px"}} onChange={e => this.changeTinhTrangKhanCap(e)}>
+                            <option value="0">Cực kỳ khẩn cấp: Cấp cứu người bệnh, phụ nữ sắp sinh</option>
+                            <option value="1">Rất khẩn cấp: Vị trí nhiều trẻ nhỏ</option>
+                            <option value="2">Khẩn cấp: Vị trí nhiều người già, phụ nữ</option>
+                            <option value="3" selected>Không khẩn cấp</option>
+                        </select>
+                    </p>
+                </div>
+                <div class = "col col-md-auto"></div>
+                <div class = "col col-md-2" style={{alignItems: "left"}}>
+                    <div class = "row">
+                        <button class = "btn btn-info btn-sm" type="button" style={{marginBottom: "5px", marginTop: "15px", fontSize: "13px", width:"80px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_AUTHENTICATED", true, Constant.accept_reject_user_regis)}>Cập nhật</button>
+                    </div>
+                </div>
+            </div>;
 
-        console.log("UserItem : ", this.state.name, " state ", this.state.estate);
+        console.log("UserItem : ", this.state.name, " state ", this.state.eState);
         if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.USER) {
-            if (this.state.estate === "STATE_UNAUTHENTICATED")
+            if (this.state.eState === "STATE_UNAUTHENTICATED")
                 return (
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "auto"}}>
                         <div class="row">
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
                             </div>
@@ -337,7 +367,7 @@ class UserItem extends React.Component {
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "auto"}}>
                         <div class="row">
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
                             </div>
@@ -356,12 +386,12 @@ class UserItem extends React.Component {
                 );
 
         } else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.AUTHORITY) {
-            if (this.state.estate === "STATE_UNAUTHENTICATED" || this.state.estate === null)
+            if (this.state.eState === "STATE_UNAUTHENTICATED" || this.state.eState === null)
                 return (
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
                         <div class="row">
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
                             </div>
@@ -382,7 +412,7 @@ class UserItem extends React.Component {
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
                         <div class="row">
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
                             </div>
@@ -394,12 +424,12 @@ class UserItem extends React.Component {
                     </div>
                 );
         } else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.RESCUER) {
-            if (this.state.estate === "STATE_UNAUTHENTICATED" || this.state.estate === null)
+            if (this.state.eState === "STATE_UNAUTHENTICATED" || this.state.eState === null)
                 return (
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
                         <div class="row">
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
                             </div>
@@ -422,7 +452,7 @@ class UserItem extends React.Component {
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
                         <div class="row">   
                              <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
                             </div>
@@ -436,12 +466,12 @@ class UserItem extends React.Component {
                     </div>
                 );
         } else if (this.userRole === roleType.AUTHORITY && this.itemRole === roleType.VOLUNTEER) {
-            if (this.state.estate === "STATE_UNAUTHENTICATED" || this.state.estate === null)
+            if (this.state.eState === "STATE_UNAUTHENTICATED" || this.state.eState === null)
                 return (
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
                         <div class="row">   
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
                             </div>
@@ -462,7 +492,7 @@ class UserItem extends React.Component {
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "110px"}}>
                         <div class="row">   
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Email: { this.state.email }</p>
                             </div>
@@ -476,12 +506,12 @@ class UserItem extends React.Component {
                     </div>
                 );
         } else if (this.userRole === roleType.VOLUNTEER && this.itemRole === roleType.USER) {
-            if (this.state.estate === "STATE_DANGER" || this.state.setState === null)
+            if (this.state.eState === "STATE_DANGER" || this.state.setState === null)
                 return (
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "auto"}}>
                         <div class="row">   
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px", height: "110px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
                             </div>
@@ -501,13 +531,14 @@ class UserItem extends React.Component {
                             </div>
                         </div>
                         {this.state.showChiTiet ? thongTinChiTiet : null}
+                        {this.state.showChiTiet ? chinhSuaThongTin : null}
                     </div>);
             else
                 return (
                     <div class = "col" style={{backgroundColor:"white", margin:"5px", borderStyle: 'groove',  borderRadius: '10px', padding: "10px", height: "auto"}}>
                         <div class="row">   
                             <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px", height: "110px"}}>
-                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px"}}>Tên: { this.state.name }</h6>
+                                <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Tên: { this.state.name }</h6>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>SĐT: { this.state.phone }</p>
                                 <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: { this.state.numPerson }</p>
                             </div>
@@ -524,6 +555,7 @@ class UserItem extends React.Component {
                             </div>
                         </div>
                         {this.state.showChiTiet ? thongTinChiTiet : null}
+                        {this.state.showChiTiet ? chinhSuaThongTin : null}
                     </div>);
         }
     }

@@ -64,7 +64,7 @@ class Ward extends React.Component {
         console.log("tinh ", tinh);
 
         this.setState({
-          trangthai: res.data.data.estate,
+          trangthai: res.data.data.eState,
           showRegisForm: 2,
           tempWard: xa[1],
           tempDistrict: huyen[1],

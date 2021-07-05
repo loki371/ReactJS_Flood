@@ -44,10 +44,10 @@ class Dashboard extends React.Component {
       res.data.data.map(
         item => {
           if (item.username != usernameData.data) {
-            if (item.estate === "STATE_UNAUTHENTICATED" || item.estate === null) {
+            if (item.eState === "STATE_UNAUTHENTICATED" || item.eState === null) {
               dataRequest.push(item);
               console.log("loading : item name = ", item.name, " -> request");
-            } else if (item.estate === "STATE_AUTHENTICATED") {
+            } else if (item.eState === "STATE_AUTHENTICATED") {
               dataAccept.push(item);
               console.log("loading : item name = ", item.name, " -> accepted");
             }
@@ -74,6 +74,7 @@ class Dashboard extends React.Component {
   }
 
   loadRegistrationForVolunteer(dataRequest, dataAccept, url, type) {
+    console.log("load registration for volunteer")
     Axios.get(url, {
       headers: {
         'Content-Type': 'application/json',
@@ -84,10 +85,10 @@ class Dashboard extends React.Component {
       console.log("data received: ", res.data.data);
       res.data.data.map(
         item => {
-          if (item.estate === "STATE_DANGER") {
+          if (item.eState === "STATE_DANGER") {
             dataRequest.push(item);
             console.log("loading : item name = ", item.name, " -> request");
-          } else if (item.estate === "STATE_EMERGENCY") {
+          } else if (item.eState === "STATE_EMERGENCY") {
             dataAccept.push(item);
             console.log("loading : item name = ", item.name, " -> accepted");
           }
