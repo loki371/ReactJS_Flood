@@ -309,6 +309,7 @@ class UserItem extends React.Component {
                 + "?numPeople=" + this.state.soNguoiTemp
                 + "&order=" + this.state.orderTemp
         );
+        alert("Cập nhật dữ liệu thành công");
     }
 
     changeTinhTrangKhanCap(e) {
