@@ -235,7 +235,7 @@ class Dashboard extends React.Component {
         {roleData.data.map(role => this.renderclonegido(role))}
       </div>
 
-      <div class="row" style={{marginTop:'10px', height: '700px', overflow: 'auto'}}>
+      <div class="row" style={{marginTop:'10px', height: '600px', overflow: 'auto'}}>
         <div class="col" style={{padding:"2px", borderStyle: 'groove',  borderRadius: '4px', backgroundColor:'rgb(176, 196, 222)'}}>
           <h6 class = "bg-danger" style={{textAlign:"center", width:'100%', height: '30px',  paddingTop: "3px", color:'white', borderRadius: '4px'}}>Danh sách yêu cầu: </h6>
           <div id="requests">
