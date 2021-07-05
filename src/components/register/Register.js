@@ -101,7 +101,7 @@ export default function Register() {
     <div class="mx-auto" style={{width: '500px', marginBottom: '150px'}}>
       <div class="container">
         <div class="row justify-content-md-center">
-          <h1 class = "text-center">Cứu nạn Miền Trung</h1>
+          <h1 class = "text-center">Cứu nạn Lũ lụt</h1>
 
           <div style={{width: '600px'}} class = "text-center">
 
