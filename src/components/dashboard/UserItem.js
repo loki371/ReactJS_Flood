@@ -315,14 +315,14 @@ class UserItem extends React.Component {
         
         if (this.userRole == roleType.VOLUNTEER)
             chinhSuaThongTin = 
-            <div class="row" style = {{paddingTop: "3px"}}>
+            <div class="row" style = {{paddingTop: "3px", paddingBottom: "10px"}}>
                 <div class = "col" style={{backgroundColor:"white", height: "90px", paddingTop: "3px", paddingLeft: "20px"}}>
                     <h6 class = "row" style={{fontWeight:"bold", fontSize: "18px", paddingLeft: "10px"}}>Chỉnh sửa thông tin</h6>
                     <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px'}}>Số người: 
                         <input type="number" style={{width: "100px", marginLeft: "30px"}}></input>
                     </p>
                     <p class = "row" style = {{paddingLeft: '4px', paddingBottom: "2px", margin: '0px', paddingTop: "5px"}}>Tình trạng: 
-                        <select class="col list-group" style={{height: "30px", marginLeft: "20px", textAlign: "left", width: "200px"}} onChange={e => this.changeTinhTrangKhanCap(e)}>
+                        <select class="col list-group" style={{height: "30px", marginLeft: "20px", textAlign: "left", width: "150px"}} onChange={e => this.changeTinhTrangKhanCap(e)}>
                             <option value="0">Cực kỳ khẩn cấp: Cấp cứu người bệnh, phụ nữ sắp sinh</option>
                             <option value="1">Rất khẩn cấp: Vị trí nhiều trẻ nhỏ</option>
                             <option value="2">Khẩn cấp: Vị trí nhiều người già, phụ nữ</option>
@@ -331,7 +331,7 @@ class UserItem extends React.Component {
                     </p>
                 </div>
                 <div class = "col col-md-auto"></div>
-                <div class = "col col-md-2" style={{alignItems: "left"}}>
+                <div class = "col col-md-3" style={{alignItems: "right"}}>
                     <div class = "row">
                         <button class = "btn btn-info btn-sm" type="button" style={{marginBottom: "5px", marginTop: "15px", fontSize: "13px", width:"80px"}}onClick={()=>this.guiAcceptRejectToUserRegis("STATE_AUTHENTICATED", true, Constant.accept_reject_user_regis)}>Cập nhật</button>
                     </div>

@@ -143,13 +143,6 @@ class App extends React.Component {
                 </div>
               </div>
               
-              <div style={{alignItems: 'center', color: 'white', margin: '0px', padding: '20px'}} class="bg-primary">
-                <div class="col">
-                  <div>Trang web Cứu nạn Lũ lụt</div>
-                  <div>Email 1712210@student.hcmus.edu.vn</div>
-                  <div>Phone 0935624754</div>
-                </div>
-              </div>
             </Route>
 
             <Route path="/dashboard/volunteers">
@@ -189,20 +182,20 @@ class App extends React.Component {
                   <button type="button" class="btn btn-secondary" onClick={() => this.loadUserInfo()}>Thông tin cá nhân</button>
                 </div>
 
-                <div class = "col" id="mainboard" style={{width:'100%', height: "700px"}}>
+                <div class = "col" id="mainboard" style={{width:'100%', height: "800px"}}>
                   {this.state.showRequestAccept?<Dashboard/>:null}
                   {this.state.showNoiLamViec?<Ward/>:null}
                   {this.state.showUserInfo?<UserInformation/>:null}
                 </div>
               </div>
 
-              <div style={{alignItems: 'center', color: 'white', margin: '0px', padding: '20px'}} class="bg-primary">
+              {/* <div style={{alignItems: 'center', color: 'white', margin: '0px', padding: '20px'}} class="bg-primary">
                 <div class="col">
                   <div>Trang web Cứu nạn Lũ lụt</div>
                   <div>Email 1712210@student.hcmus.edu.vn</div>
                   <div>Phone 0935624754</div>
                 </div>
-              </div>
+              </div> */}
             </Route>
 
             <Route>
@@ -212,8 +205,15 @@ class App extends React.Component {
           </Switch>
         </BrowserRouter>
 
-      
-      </div>
+        <div style={{alignItems: 'center', color: 'white', marginTop: '0px', padding: '20px'}} class="bg-primary">
+            <div class="col">
+              <div>Trang web Cứu nạn Lũ lụt</div>
+              <div>Email 1712210@student.hcmus.edu.vn</div>
+              <div>Phone 0935624754</div>
+            </div>
+          </div>
+
+        </div>
     );
   }
 }
