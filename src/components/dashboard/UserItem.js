@@ -264,7 +264,10 @@ class UserItem extends React.Component {
                 if (index !== -1) {
                     arrRequest.splice(index, 1);
                     this.state.element.eState = "STATE_AUTHENTICATED";
-                    arrAccept.push(this.state.element);
+
+                    if (res.data === true)
+                        arrAccept.push(this.state.element);
+                    
                     console.log("thay doi state Accept");
                 }
             } else {
