@@ -134,7 +134,7 @@ class UserInfomation extends React.Component {
       this.state.showUserData == 1 ?
 
       <div style={{marginLeft: '20px', margin:"20px", marginTop: "5px", height: "500px", textAlign: "center"}}>
-        <h5 style={{width: "100%", textAlign: "center", fontWeight: "bold"}}>Thông tin người dùng</h5>
+        <h5 style={{width: "100%", textAlign: "center", fontWeight: "bold"}}>Thông tin cá nhân</h5>
         
         <div style={{width: "500px", textAlign: "left", height: "70px", marginTop: "20px", borderStyle:"groove", borderRadius: "5px", height: "350px", marginLeft:"auto", marginRight: "auto"}} class="row">
             <div class="row" style={{padding: "0px", margin: "0px", paddingLeft: "20px"}}>
