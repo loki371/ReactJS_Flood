@@ -97,11 +97,11 @@ class UserItem extends React.Component {
               'Authorization': tokenData.data
             },
         }).then((res) => {
-            console.log("result = ", res.data[0]['regidId-url']);
+            console.log("result = ", res.data[0]['regidId-url'][this.state.id]);
             
             this.setState({
                 showChiTiet: !this.state.showChiTiet,
-                source: Constant.python_service + "/" + res.data[0]['regidId-url'],
+                source: Constant.python_service + "/" + res.data[0]['regidId-url'][this.state.id],
                 textBtxChiTiet: "Ẩn",
                 avatar: 2
             });
