@@ -90,7 +90,7 @@ class UserItem extends React.Component {
         }
         this.setState({avatar: 0});
 
-        var url = Constant.image_service + "/" + this.state.id;
+        var url = Constant.image_service + "/list/" + this.state.id;
         Axios.get(url, {
             headers: {
               'Content-Type': 'application/json',
