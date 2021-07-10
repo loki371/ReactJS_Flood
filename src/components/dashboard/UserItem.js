@@ -100,7 +100,7 @@ class UserItem extends React.Component {
             console.log("result = ", res.data);
             this.setState({
                 showChiTiet: !this.state.showChiTiet,
-                source: Constant.python_service + "/" + res.data[0].url,
+                source: Constant.python_service + "/images/" + res.data[0]["regisId-url"][this.state.id],
                 textBtxChiTiet: "Ẩn",
                 avatar: 2
             });
