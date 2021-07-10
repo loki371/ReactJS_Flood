@@ -98,8 +98,14 @@ class UserItem extends React.Component {
             },
         }).then((res) => {
             console.log("result = ", res.data[0]['regidId-url'][this.state.id]);
-            if (res.data[0]['regidId-url'][this.state.id] === "")
-                return
+            if (res.data[0]['regidId-url'][this.state.id] === "") {
+                this.setState({
+                    showChiTiet: !this.state.showChiTiet,
+                    textBtxChiTiet: "Ẩn",
+                    avatar: 1
+                })
+                return;
+            }
             this.setState({
                 showChiTiet: !this.state.showChiTiet,
                 source: Constant.python_service + "/" + res.data[0]['regidId-url'][this.state.id],
